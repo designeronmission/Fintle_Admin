@@ -648,7 +648,7 @@
     document.getElementById('saveContinuePremiumBtn')?.addEventListener('click', handleSaveContinue);
     document.getElementById('recordPaymentPremiumBtn')?.addEventListener('click', handleRecordPayment);
 
-    // set initial invoice reference and issue date
+    //set initial invoice reference and issue date
     let todayDate = new Date().toISOString().slice(0,10);
     document.getElementById('issueDatePremium').innerText = todayDate;
     document.getElementById('invRefPremium').innerText = 'INV-' + new Date().getFullYear() + '-' + Math.floor(Math.random()*900+100);

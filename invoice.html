@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
@@ -7,11 +8,65 @@
   <!-- Bootstrap 5 + Icons + Fonts -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/libs/css/styles.css"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/libs/css/styles.css" />
   <style>
+    /* Single Row Actions Bar */
+    .actions-bar {
+      background: white;
+      border-radius: 20px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #eef2f8;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
 
-   
+    .filters-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      flex: 2;
+    }
+
+
+    /* Badges */
+    .badge-unpaid {
+      background: #fff3e3;
+      color: #c26b1a;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    .badge-paid {
+      background: #f0ffe3;
+      color: #1ac266;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    .badge-pending {
+      background: #fffce6;
+      color: #b69500;
+    }
+
+    .item-code-link {
+      font-weight: 600;
+      color: #2c7da0;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: monospace;
+    }
+
+
     /* KPI Cards */
     .stat-card {
       background: white;
@@ -20,12 +75,14 @@
       transition: transform 0.2s, box-shadow 0.2s;
       padding: 1.4rem 1.2rem;
       height: 100%;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
     }
+
     .stat-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.08);
     }
+
     .stat-value {
       font-size: 2rem;
       font-weight: 800;
@@ -34,6 +91,7 @@
       line-height: 1.2;
       margin-bottom: 8px;
     }
+
     .stat-label {
       font-size: 0.7rem;
       text-transform: uppercase;
@@ -41,6 +99,7 @@
       font-weight: 700;
       color: #5b6e8c;
     }
+
     .stat-icon-wrapper {
       width: 52px;
       height: 52px;
@@ -49,18 +108,17 @@
       align-items: center;
       justify-content: center;
     }
-
-   
   </style>
 </head>
+
 <body>
 
 
 
 
 
-    <div id="main-wrapper">
-       <!-- Sidebar Start -->
+  <div id="main-wrapper">
+    <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <!-- ---------------------------------- -->
       <!-- Start Vertical Layout Sidebar -->
@@ -102,30 +160,8 @@
                   <span class="hide-menu">Items</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="../main/frontend-landingpage.html">
-                      <span class="icon-small"></span>
-                      HSN & SAC Codes
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="../main/frontend-aboutpage.html">
-                      <span class="icon-small"></span>
-                      Category
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span>
-                      Sub Category
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span>
-                      Items
-                    </a>
-                  </li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="items.html"><span class="icon-small"></span>
+                      Inventory</a></li>
 
                 </ul>
               </li>
@@ -170,10 +206,10 @@
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="../main/frontend-landingpage.html">
-                      <span class="icon-small"></span>
-                      Customer
-                    </a>
+                   <a class="sidebar-link" href="customer.html">
+                                            <span class="icon-small"></span>
+                                            Customer
+                                        </a>
                   </li>
                   <li class="sidebar-item">
                     <a class="sidebar-link" href="../main/frontend-aboutpage.html">
@@ -213,9 +249,9 @@
       </div>
     </aside>
     <!--  Sidebar End -->
-    
+
     <div class="page-wrapper">
-   <!--  Header Start -->
+      <!--  Header Start -->
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
@@ -231,12 +267,12 @@
                   <iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon>
                 </a>
               </li>
-              
+
               <!-- Create Sales Invoice Button with Hover Mega Menu -->
               <li class="nav-item d-none d-lg-flex dropdown">
                 <div class="hover-dd">
-                  <button class="btn bg-primary-subtle text-primary dropdown-toggle" 
-                     style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
+                  <button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
                     <iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>
                     Create Sales Invoice
                   </button>
@@ -254,11 +290,12 @@
                                     <div
                                       class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
                                       <iconify-icon icon="solar:chat-line-bold-duotone"
-                                        class="fs-7 text-primary"></iconify-icon> 
+                                        class="fs-7 text-primary"></iconify-icon>
                                     </div>
                                     <div>
                                       <h6 class="mb-0"> Create Party</h6>
-                                      <span class="fs-11 d-block text-body-color">Set up profiles for new customers or vendors.</span>
+                                      <span class="fs-11 d-block text-body-color">Set up profiles for new customers or
+                                        vendors.</span>
                                     </div>
                                   </a>
                                   <a href="../main/app-invoice.html"
@@ -270,7 +307,8 @@
                                     </div>
                                     <div>
                                       <h6 class="mb-0">Create Item</h6>
-                                      <span class="fs-11 d-block text-body-color">Register new products or services into your inventory.</span>
+                                      <span class="fs-11 d-block text-body-color">Register new products or services into
+                                        your inventory.</span>
                                     </div>
                                   </a>
                                   <a href="../main/app-contact2.html"
@@ -282,7 +320,8 @@
                                     </div>
                                     <div>
                                       <h6 class="mb-0">Quotation</h6>
-                                      <span class="fs-11 d-block text-body-color">Issue price estimates to potential clients.</span>
+                                      <span class="fs-11 d-block text-body-color">Issue price estimates to potential
+                                        clients.</span>
                                     </div>
                                   </a>
                                   <a href="../main/app-email.html"
@@ -294,7 +333,8 @@
                                     </div>
                                     <div>
                                       <h6 class="mb-0">Payment In</h6>
-                                      <span class="fs-11 d-block text-body-color">Record money received from customers. </span>
+                                      <span class="fs-11 d-block text-body-color">Record money received from customers.
+                                      </span>
                                     </div>
                                   </a>
                                 </div>
@@ -322,7 +362,8 @@
                                     </div>
                                     <div>
                                       <h6 class="mb-0">Delivery Challan</h6>
-                                      <span class="fs-11 d-block text-body-color">Document the dispatch of goods for delivery. </span>
+                                      <span class="fs-11 d-block text-body-color">Document the dispatch of goods for
+                                        delivery. </span>
                                     </div>
                                   </a>
                                   <a href="../main/app-contact.html"
@@ -334,7 +375,8 @@
                                     </div>
                                     <div>
                                       <h6 class="mb-0">Purchase</h6>
-                                      <span class="fs-11 d-block text-body-color">Send official requests to suppliers for goods</span>
+                                      <span class="fs-11 d-block text-body-color">Send official requests to suppliers
+                                        for goods</span>
                                     </div>
                                   </a>
                                   <a href="../main/app-notes.html"
@@ -360,7 +402,7 @@
                   </div>
                 </div>
               </li>
-              
+
             </ul>
 
             <div class="d-block d-lg-none py-9 py-xl-0">
@@ -1081,172 +1123,231 @@
 
       <div class="body-wrapper">
         <div class="container-fluid p-4">
-                <!-- Stats Row -->
-      <div class="row g-4 mb-5">
-        <div class="col-md-3 col-sm-6">
-          <div class="stat-card">
-            <div class="d-flex justify-content-between align-items-start">
-              <div>
-                <div class="stat-label">TOTAL SALES</div>
-                <div class="stat-value" id="totalSalesValue">₹ 0</div>
-                <a href="#" class="small text-primary fw-semibold text-decoration-none" onclick="showToast('📊 Total sales overview'); return false;">View Details →</a>
-              </div>
-              <div class="stat-icon-wrapper bg-primary-subtle">
-                <i class="fas fa-chart-line text-primary fs-3"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <div class="stat-card">
-            <div class="d-flex justify-content-between align-items-start">
-              <div>
-                <div class="stat-label">PAID</div>
-                <div class="stat-value" id="paidAmountValue">₹ 0</div>
-                <a href="#" class="small text-success fw-semibold text-decoration-none" onclick="showToast('✅ Paid invoices summary'); return false;">View Details →</a>
-              </div>
-              <div class="stat-icon-wrapper bg-success bg-opacity-10">
-                <i class="fas fa-check-circle text-success fs-3"></i>
+          <div class="card card-body py-3">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <div class="d-sm-flex align-items-center justify-space-between">
+                  <h4 class="mb-4 mb-sm-0 card-title">Invoice</h4>
+                  <nav aria-label="breadcrumb" class="ms-auto">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item d-flex align-items-center">
+                        <a class="text-muted text-decoration-none d-flex" href="index.html">
+                          <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                        </a>
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <div class="stat-card">
-            <div class="d-flex justify-content-between align-items-start">
-              <div>
-                <div class="stat-label">UNPAID</div>
-                <div class="stat-value" id="unpaidAmountValue">₹ 0</div>
-                <a href="#" class="small text-warning fw-semibold text-decoration-none" onclick="showToast('⚠️ Unpaid invoices list'); return false;">View Details →</a>
-              </div>
-              <div class="stat-icon-wrapper bg-warning bg-opacity-10">
-                <i class="fas fa-exclamation-triangle text-warning fs-3"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <div class="stat-card">
-            <div class="d-flex justify-content-between align-items-start">
-              <div>
-                <div class="stat-label">OVERDUE</div>
-                <div class="stat-value" id="overdueAmountValue">₹ 0</div>
-                <a href="#" class="small text-danger fw-semibold text-decoration-none" onclick="showToast('⏰ Overdue reminders'); return false;">View Details →</a>
-              </div>
-              <div class="stat-icon-wrapper bg-danger bg-opacity-10">
-                <i class="fas fa-clock text-danger fs-3"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Actions Bar -->
-      <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
-        <div class="d-flex flex-wrap gap-3 align-items-center">
-          <div class="position-relative d-md-none w-100">
-            <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-            <input type="text" id="mobileSearch" class="search-input w-100" placeholder="Search...">
-          </div>
-          <span class="filter-badge"><i class="far fa-calendar-alt me-2"></i> Last 365 Days</span>
-          <div class="dropdown">
-            <span class="filter-badge dropdown-toggle" data-bs-toggle="dropdown">Bulk Actions</span>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#" onclick="showToast('📤 Export selected invoices')">Export Selected</a></li>
-              <li><a class="dropdown-item" href="#" onclick="showToast('✅ Mark as Paid (demo)')">Mark as Paid</a></li>
-            </ul>
-          </div>
-        </div>
-        <button class="btn btn-primary rounded-pill px-5 py-2 shadow-sm" id="createInvoiceBtn2" onclick="location.href='create-invoice.html'" >
-          <i class="fas fa-plus me-2"></i> New Invoice
-        </button>
-      </div>
-
-      <!-- Invoice Table Card -->
-      <div class="card card-custom overflow-hidden">
-        <div class="table-responsive">
-          <table class="table invoice-table align-middle mb-0">
-            <thead>
-              <tr>
-                <th style="width: 40px; padding-left: 1.5rem;"><input class="form-check-input" type="checkbox" id="selectAllCheckbox"></th>
-                <th>Date</th>
-                <th>Invoice #</th>
-                <th>Party Name</th>
-                <th>Due Date</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th style="width: 70px;">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="invoiceTableBody">
-              <!-- JS injects rows -->
-            </tbody>
-          </table>
-        </div>
-        <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center py-3 px-4">
-          <span class="text-muted small">Showing <span id="rowCount" class="fw-semibold">0</span> invoices</span>
-          <span class="text-muted small"><i class="fas fa-info-circle me-1"></i> Click on invoice # to preview</span>
-        </div>
-      </div>
+          <div class="card card-body p-4 pb-0" data-simplebar="">
+            <div class="row flex-nowrap">
+              <div class="col">
+                <div class="card primary-gradient">
+                  <div class="card-body text-center px-9 pb-4">
+                    <div
+                      class="d-flex align-items-center justify-content-center round-48 rounded text-bg-primary flex-shrink-0 mb-3 mx-auto">
+                      <iconify-icon icon="solar:dollar-minimalistic-linear" class="fs-7 text-white"></iconify-icon>
+                    </div>
+                    <h6 class="fw-normal fs-3 mb-1">Invoices Sent</h6>
+                    <h4 class="mb-1 d-flex align-items-center justify-content-center gap-1">
+                      $319,775</h4>
+                    <p>#7 invoices</p>
+                    <a href="javascript:void(0)" class="btn btn-white fs-2 fw-semibold text-nowrap">View
+                      Details</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card warning-gradient">
+                  <div class="card-body text-center px-9 pb-4">
+                    <div
+                      class="d-flex align-items-center justify-content-center round-48 rounded text-bg-warning flex-shrink-0 mb-3 mx-auto">
+                      <iconify-icon icon="solar:recive-twice-square-linear" class="fs-7 text-white"></iconify-icon>
+                    </div>
+                    <h6 class="fw-normal fs-3 mb-1">Paid Invoices</h6>
+                    <h4 class="mb-1 d-flex align-items-center justify-content-center gap-1">
+                      $181,165</h4>
+                    <p>#7 Paid</p>
+                    <a href="javascript:void(0)" class="btn btn-white fs-2 fw-semibold text-nowrap">View
+                      Details</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card secondary-gradient">
+                  <div class="card-body text-center px-9 pb-4">
+                    <div
+                      class="d-flex align-items-center justify-content-center round-48 rounded text-bg-secondary flex-shrink-0 mb-3 mx-auto">
+                      <iconify-icon icon="ic:outline-backpack" class="fs-7 text-white"></iconify-icon>
+                    </div>
+                    <h6 class="fw-normal fs-3 mb-1">Overdue Invoices</h6>
+                    <h4 class="mb-1 d-flex align-items-center justify-content-center gap-1">
+                      $355,447</h4>
+                    <p>#5 Overdue</p>
+                    <a href="javascript:void(0)" class="btn btn-white fs-2 fw-semibold text-nowrap">View
+                      Details</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card danger-gradient">
+                  <div class="card-body text-center px-9 pb-4">
+                    <div
+                      class="d-flex align-items-center justify-content-center round-48 rounded text-bg-danger flex-shrink-0 mb-3 mx-auto">
+                      <iconify-icon icon="ic:baseline-sync-problem" class="fs-7 text-white"></iconify-icon>
+                    </div>
+                    <h6 class="fw-normal fs-3 mb-1">Draft Invoices</h6>
+                    <h4 class="mb-1 d-flex align-items-center justify-content-center gap-1">
+                      $3,304,414</h4>
+                    <p>#55 Draft</p>
+                    <a href="javascript:void(0)" class="btn btn-white fs-2 fw-semibold text-nowrap">View
+                      Details</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="toast-container position-fixed bottom-0 end-0 p-3"></div>
-      </div>
-    </div>
-  </div>
+
+          <!-- Single Row Actions Bar: Search + Category + Low Stock + Bulk Actions + Create Item -->
+          <div class="actions-bar">
+            <div class="filters-group">
+              <!-- Search by Item -->
+              <span class="filter-badge"><i class="far fa-calendar-alt me-2"></i> Last 365 Days</span>
 
 
+              <div class="btn-group">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Bulk Actions
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li><a class="dropdown-item" href="javascript:void(0)">Export Selected</a></li>
+                  <li>
+                    <a class="dropdown-item" href="javascript:void(0)">Mark as Paid</a>
+                  </li>
+                </ul>
+              </div>
 
 
-<!-- Invoice Preview Modal -->
-<div class="modal fade" id="invoicePreviewModal" tabindex="-1" data-bs-backdrop="static">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content border-0 rounded-4">
-      <div class="modal-header bg-white border-0 pt-4 px-4">
-        <h5 class="modal-title fw-bold"><i class="fas fa-receipt text-primary me-2"></i> Invoice Preview</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body px-4 pb-4">
-        <div class="bg-white border rounded-4 p-4">
-          <div class="d-flex flex-wrap justify-content-between border-bottom pb-3 mb-3">
-            <div>
-              <h4 class="fw-bold">#<span id="modalInvNo">INV-001</span></h4>
-              <p class="text-muted mb-0"><i class="far fa-calendar"></i> <span id="modalDate"></span></p>
-              <p class="text-muted"><i class="far fa-clock"></i> Due: <span id="modalDue"></span></p>
             </div>
-            <div class="bg-light p-3 rounded-3">
-              <strong>FINTLE BUSINESS</strong><br> GSTIN: 29AAACF1234D1Z
+
+            <div class="bulk-group">
+              <!-- Create Item Button -->
+              <button class="btn btn-primary rounded-pill px-5 py-2 shadow-sm" id="createInvoiceBtn2"
+                onclick="location.href='create-invoice.html'">
+                <i class="fas fa-plus me-2"></i> New Invoice
+              </button>
             </div>
           </div>
-          <div class="d-flex justify-content-between flex-wrap mb-4">
-            <div><span class="text-muted">Bill To:</span><p class="fw-bold" id="modalParty"></p></div>
-            <div><span class="text-muted">Status:</span> <span id="modalStatusBadge" class="badge bg-success"></span></div>
-          </div>
-          <div class="table-responsive">
-            <table class="table table-bordered bg-light">
-              <thead class="table-light"><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead>
-              <tbody id="modalItemsList"></tbody>
-              <tfoot><tr><td colspan="3" class="text-end fw-bold">Total</td><td class="fw-bold" id="modalTotal"></td></tr></tfoot>
-            </table>
-          </div>
-          <div class="mt-4 d-flex justify-content-end gap-3">
-            <button class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
-            <button class="btn btn-primary rounded-pill px-4" onclick="showToast('🖨️ Printing invoice (demo)');"><i class="fas fa-print me-2"></i> Print</button>
+
+
+          <!-- Invoice Table Card -->
+          <div class="card card-custom overflow-hidden">
+            <div class="table-responsive">
+              <table class="table invoice-table align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th style="width: 40px; padding-left: 1.5rem;"><input class="form-check-input" type="checkbox"
+                        id="selectAllCheckbox"></th>
+                    <th>Date</th>
+                    <th>Invoice #</th>
+                    <th>Party Name</th>
+                    <th>Due Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th style="width: 70px;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="invoiceTableBody">
+                  <!-- JS injects rows -->
+                </tbody>
+              </table>
+            </div>
+            <div
+              class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center py-3 px-4">
+              <span class="text-muted small">Showing <span id="rowCount" class="fw-semibold">0</span> invoices</span>
+              <span class="text-muted small"><i class="fas fa-info-circle me-1"></i> Click on invoice # to
+                preview</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  <div class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+  </div>
+  </div>
+  </div>
 
-<!-- Toast -->
-<div id="liveToastMsg" class="toast-notify" style="display: none;">
-  <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
-</div>
 
-   <!-- Import Js Files -->
+
+
+  <!-- Invoice Preview Modal -->
+  <div class="modal fade" id="invoicePreviewModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4">
+        <div class="modal-header bg-white border-0 pt-4 px-4">
+          <h5 class="modal-title fw-bold"><i class="fas fa-receipt text-primary me-2"></i> Invoice Preview</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body px-4 pb-4">
+          <div class="bg-white border rounded-4 p-4">
+            <div class="d-flex flex-wrap justify-content-between border-bottom pb-3 mb-3">
+              <div>
+                <h4 class="fw-bold">#<span id="modalInvNo">INV-001</span></h4>
+                <p class="text-muted mb-0"><i class="far fa-calendar"></i> <span id="modalDate"></span></p>
+                <p class="text-muted"><i class="far fa-clock"></i> Due: <span id="modalDue"></span></p>
+              </div>
+              <div class="bg-light p-3 rounded-3">
+                <strong>FINTLE BUSINESS</strong><br> GSTIN: 29AAACF1234D1Z
+              </div>
+            </div>
+            <div class="d-flex justify-content-between flex-wrap mb-4">
+              <div><span class="text-muted">Bill To:</span>
+                <p class="fw-bold" id="modalParty"></p>
+              </div>
+              <div><span class="text-muted">Status:</span> <span id="modalStatusBadge" class="badge bg-success"></span>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered bg-light">
+                <thead class="table-light">
+                  <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="modalItemsList"></tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3" class="text-end fw-bold">Total</td>
+                    <td class="fw-bold" id="modalTotal"></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="mt-4 d-flex justify-content-end gap-3">
+              <button class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+              <button class="btn btn-primary rounded-pill px-4" onclick="showToast('🖨️ Printing invoice (demo)');"><i
+                  class="fas fa-print me-2"></i> Print</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="liveToastMsg" class="toast-notify" style="display: none;">
+    <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
+  </div>
+
+  <!-- Import Js Files -->
   <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
   <script src="assets/libs/js/simplebar.min.js"></script>
   <script src="assets/libs/js/app.init.js"></script>
@@ -1270,53 +1371,53 @@
   <script src="assets/libs/js/apexcharts.min.js"></script>
   <script src="assets/libs/js/dashboard1.js"></script>
   <script src="assets/libs/js/index.global.min.js"></script>
- 
 
-<script>
-  // Enhanced dataset with line items and proper spacing
-  let invoices = [
-    { id: 1, date: "2026-04-15", invNo: "INV-2404-001", party: "ABC Enterprises Pvt Ltd", dueDate: "2026-05-15", amount: 5404, status: "Unpaid", items: [{name:"Web Dev Services", qty:1, rate:2500},{name:"Cloud Hosting", qty:1, rate:480},{name:"UI/UX Consult", qty:2, rate:850}] },
-    { id: 2, date: "2026-04-10", invNo: "INV-2404-002", party: "XYZ Solutions", dueDate: "2026-05-10", amount: 3200, status: "Paid", items: [{name:"Software License", qty:2, rate:1600}] },
-    { id: 3, date: "2026-04-05", invNo: "INV-2404-003", party: "Global Traders", dueDate: "2026-04-20", amount: 1250, status: "Paid", items: [{name:"Consulting", qty:5, rate:250}] },
-    { id: 4, date: "2026-03-28", invNo: "INV-2403-045", party: "Sunrise Industries", dueDate: "2026-04-28", amount: 890, status: "Unpaid", items: [{name:"Raw Materials", qty:10, rate:89}] },
-    { id: 5, date: "2026-03-20", invNo: "INV-2403-044", party: "Metro Corp", dueDate: "2026-04-10", amount: 2100, status: "Pending", items: [{name:"Annual Maintenance", qty:1, rate:2100}] },
-    { id: 6, date: "2026-04-01", invNo: "INV-2404-006", party: "Aster Innovations", dueDate: "2026-05-01", amount: 4750, status: "Paid", items: [{name:"Cloud Services", qty:1, rate:4750}] }
-  ];
 
-  function showToast(msg) {
-    const toastDiv = document.getElementById('liveToastMsg');
-    const toastText = document.getElementById('toastText');
-    toastText.innerHTML = msg;
-    toastDiv.style.display = 'flex';
-    setTimeout(() => { toastDiv.style.display = 'none'; }, 2300);
-  }
+  <script>
+    // Enhanced dataset with line items and proper spacing
+    let invoices = [
+      { id: 1, date: "2026-04-15", invNo: "INV-2404-001", party: "ABC Enterprises Pvt Ltd", dueDate: "2026-05-15", amount: 5404, status: "Unpaid", items: [{ name: "Web Dev Services", qty: 1, rate: 2500 }, { name: "Cloud Hosting", qty: 1, rate: 480 }, { name: "UI/UX Consult", qty: 2, rate: 850 }] },
+      { id: 2, date: "2026-04-10", invNo: "INV-2404-002", party: "XYZ Solutions", dueDate: "2026-05-10", amount: 3200, status: "Paid", items: [{ name: "Software License", qty: 2, rate: 1600 }] },
+      { id: 3, date: "2026-04-05", invNo: "INV-2404-003", party: "Global Traders", dueDate: "2026-04-20", amount: 1250, status: "Paid", items: [{ name: "Consulting", qty: 5, rate: 250 }] },
+      { id: 4, date: "2026-03-28", invNo: "INV-2403-045", party: "Sunrise Industries", dueDate: "2026-04-28", amount: 890, status: "Unpaid", items: [{ name: "Raw Materials", qty: 10, rate: 89 }] },
+      { id: 5, date: "2026-03-20", invNo: "INV-2403-044", party: "Metro Corp", dueDate: "2026-04-10", amount: 2100, status: "Pending", items: [{ name: "Annual Maintenance", qty: 1, rate: 2100 }] },
+      { id: 6, date: "2026-04-01", invNo: "INV-2404-006", party: "Aster Innovations", dueDate: "2026-05-01", amount: 4750, status: "Paid", items: [{ name: "Cloud Services", qty: 1, rate: 4750 }] }
+    ];
 
-  function formatCurrency(amount) {
-    return `₹ ${amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-  }
+    function showToast(msg) {
+      const toastDiv = document.getElementById('liveToastMsg');
+      const toastText = document.getElementById('toastText');
+      toastText.innerHTML = msg;
+      toastDiv.style.display = 'flex';
+      setTimeout(() => { toastDiv.style.display = 'none'; }, 2300);
+    }
 
-  function updateStats() {
-    const total = invoices.reduce((s, i) => s + i.amount, 0);
-    const paid = invoices.filter(i => i.status === 'Paid').reduce((s, i) => s + i.amount, 0);
-    const unpaid = invoices.filter(i => i.status === 'Unpaid').reduce((s, i) => s + i.amount, 0);
-    const overdue = invoices.filter(i => i.status === 'Unpaid' && new Date(i.dueDate) < new Date()).reduce((s, i) => s + i.amount, 0);
-    document.getElementById('totalSalesValue').innerHTML = formatCurrency(total);
-    document.getElementById('paidAmountValue').innerHTML = formatCurrency(paid);
-    document.getElementById('unpaidAmountValue').innerHTML = formatCurrency(unpaid);
-    document.getElementById('overdueAmountValue').innerHTML = formatCurrency(overdue);
-  }
+    function formatCurrency(amount) {
+      return `₹ ${amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
 
-  function renderTable(filter = "") {
-    const tbody = document.getElementById('invoiceTableBody');
-    const filtered = invoices.filter(inv => inv.party.toLowerCase().includes(filter.toLowerCase()) || inv.invNo.toLowerCase().includes(filter.toLowerCase()));
-    tbody.innerHTML = "";
-    filtered.forEach(inv => {
-      let statusClass = "", statusIcon = "";
-      if(inv.status === "Paid") { statusClass = "badge-paid"; statusIcon = "fa-check-circle"; }
-      else if(inv.status === "Unpaid") { statusClass = "badge-unpaid"; statusIcon = "fa-exclamation-circle"; }
-      else { statusClass = "badge-pending"; statusIcon = "fa-hourglass-half"; }
-      const row = document.createElement('tr');
-      row.innerHTML = `
+    function updateStats() {
+      const total = invoices.reduce((s, i) => s + i.amount, 0);
+      const paid = invoices.filter(i => i.status === 'Paid').reduce((s, i) => s + i.amount, 0);
+      const unpaid = invoices.filter(i => i.status === 'Unpaid').reduce((s, i) => s + i.amount, 0);
+      const overdue = invoices.filter(i => i.status === 'Unpaid' && new Date(i.dueDate) < new Date()).reduce((s, i) => s + i.amount, 0);
+      document.getElementById('totalSalesValue').innerHTML = formatCurrency(total);
+      document.getElementById('paidAmountValue').innerHTML = formatCurrency(paid);
+      document.getElementById('unpaidAmountValue').innerHTML = formatCurrency(unpaid);
+      document.getElementById('overdueAmountValue').innerHTML = formatCurrency(overdue);
+    }
+
+    function renderTable(filter = "") {
+      const tbody = document.getElementById('invoiceTableBody');
+      const filtered = invoices.filter(inv => inv.party.toLowerCase().includes(filter.toLowerCase()) || inv.invNo.toLowerCase().includes(filter.toLowerCase()));
+      tbody.innerHTML = "";
+      filtered.forEach(inv => {
+        let statusClass = "", statusIcon = "";
+        if (inv.status === "Paid") { statusClass = "badge-paid"; statusIcon = "fa-check-circle"; }
+        else if (inv.status === "Unpaid") { statusClass = "badge-unpaid"; statusIcon = "fa-exclamation-circle"; }
+        else { statusClass = "badge-pending"; statusIcon = "fa-hourglass-half"; }
+        const row = document.createElement('tr');
+        row.innerHTML = `
         <td style="padding-left: 1.5rem;"><input class="form-check-input row-checkbox" type="checkbox" data-id="${inv.id}"></td>
         <td class="text-nowrap">${inv.date}</td>
         <td><span class="invoice-number-link" data-id="${inv.id}">${inv.invNo}</span></td>
@@ -1334,91 +1435,92 @@
           </div>
         </td>
       `;
-      tbody.appendChild(row);
-    });
-    document.getElementById('rowCount').innerText = filtered.length;
-
-    // attach listeners
-    document.querySelectorAll('.invoice-number-link').forEach(el => {
-      el.addEventListener('click', (e) => {
-        const id = parseInt(el.getAttribute('data-id'));
-        const inv = invoices.find(i => i.id === id);
-        if(inv) showModal(inv);
+        tbody.appendChild(row);
       });
+      document.getElementById('rowCount').innerText = filtered.length;
+
+      // attach listeners
+      document.querySelectorAll('.invoice-number-link').forEach(el => {
+        el.addEventListener('click', (e) => {
+          const id = parseInt(el.getAttribute('data-id'));
+          const inv = invoices.find(i => i.id === id);
+          if (inv) showModal(inv);
+        });
+      });
+      document.querySelectorAll('.edit-inv').forEach(btn => {
+        btn.addEventListener('click', (e) => { e.preventDefault(); showToast("✏️ Edit invoice demo"); });
+      });
+      document.querySelectorAll('.delete-inv').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const id = parseInt(btn.getAttribute('data-id'));
+          if (confirm("Delete invoice permanently?")) {
+            invoices = invoices.filter(i => i.id !== id);
+            renderTable(document.getElementById('globalSearch')?.value || '');
+            updateStats();
+            showToast("🗑️ Invoice deleted");
+          }
+        });
+      });
+    }
+
+    function showModal(inv) {
+      document.getElementById('modalInvNo').innerText = inv.invNo;
+      document.getElementById('modalDate').innerText = inv.date;
+      document.getElementById('modalParty').innerText = inv.party;
+      document.getElementById('modalDue').innerText = inv.dueDate;
+      const statusSpan = document.getElementById('modalStatusBadge');
+      if (inv.status === 'Paid') statusSpan.className = "badge bg-success";
+      else if (inv.status === 'Unpaid') statusSpan.className = "badge bg-danger";
+      else statusSpan.className = "badge bg-warning text-dark";
+      statusSpan.innerText = inv.status;
+      document.getElementById('modalTotal').innerHTML = formatCurrency(inv.amount);
+      const itemsContainer = document.getElementById('modalItemsList');
+      if (inv.items && inv.items.length) {
+        itemsContainer.innerHTML = inv.items.map(it => `<tr><td>${it.name}</td><td>${it.qty}</td><td>${formatCurrency(it.rate)}</td><td>${formatCurrency(it.qty * it.rate)}</td></tr>`).join('');
+      } else {
+        itemsContainer.innerHTML = '<tr><td colspan="4" class="text-center">No line items</td></tr>';
+      }
+      new bootstrap.Modal(document.getElementById('invoicePreviewModal')).show();
+    }
+
+    // Event Listeners
+    document.getElementById('selectAllCheckbox')?.addEventListener('change', (e) => {
+      document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
     });
-    document.querySelectorAll('.edit-inv').forEach(btn => {
-      btn.addEventListener('click', (e) => { e.preventDefault(); showToast("✏️ Edit invoice demo"); });
+
+    const searchHandler = () => {
+      const val = document.getElementById('globalSearch')?.value || '';
+      renderTable(val);
+      if (document.getElementById('mobileSearch')) document.getElementById('mobileSearch').value = val;
+    };
+    document.getElementById('globalSearch')?.addEventListener('input', searchHandler);
+    const mobileSearch = document.getElementById('mobileSearch');
+    if (mobileSearch) mobileSearch.addEventListener('input', (e) => {
+      document.getElementById('globalSearch').value = e.target.value;
+      renderTable(e.target.value);
     });
-    document.querySelectorAll('.delete-inv').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const id = parseInt(btn.getAttribute('data-id'));
-        if(confirm("Delete invoice permanently?")) {
-          invoices = invoices.filter(i => i.id !== id);
-          renderTable(document.getElementById('globalSearch')?.value || '');
-          updateStats();
-          showToast("🗑️ Invoice deleted");
+
+    const createInvoice = () => showToast("✨ Create new invoice (integration ready)");
+    document.getElementById('createInvoiceBtnHeader')?.addEventListener('click', createInvoice);
+    document.getElementById('createInvoiceBtn2')?.addEventListener('click', createInvoice);
+
+    // Mobile sidebar toggle
+    const toggleBtn = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('mainSidebar');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => sidebar.classList.toggle('show-mobile'));
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth < 769 && sidebar.classList.contains('show-mobile') && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+          sidebar.classList.remove('show-mobile');
         }
       });
-    });
-  }
-
-  function showModal(inv) {
-    document.getElementById('modalInvNo').innerText = inv.invNo;
-    document.getElementById('modalDate').innerText = inv.date;
-    document.getElementById('modalParty').innerText = inv.party;
-    document.getElementById('modalDue').innerText = inv.dueDate;
-    const statusSpan = document.getElementById('modalStatusBadge');
-    if(inv.status === 'Paid') statusSpan.className = "badge bg-success";
-    else if(inv.status === 'Unpaid') statusSpan.className = "badge bg-danger";
-    else statusSpan.className = "badge bg-warning text-dark";
-    statusSpan.innerText = inv.status;
-    document.getElementById('modalTotal').innerHTML = formatCurrency(inv.amount);
-    const itemsContainer = document.getElementById('modalItemsList');
-    if(inv.items && inv.items.length) {
-      itemsContainer.innerHTML = inv.items.map(it => `<tr><td>${it.name}</td><td>${it.qty}</td><td>${formatCurrency(it.rate)}</td><td>${formatCurrency(it.qty * it.rate)}</td></tr>`).join('');
-    } else {
-      itemsContainer.innerHTML = '<tr><td colspan="4" class="text-center">No line items</td></tr>';
     }
-    new bootstrap.Modal(document.getElementById('invoicePreviewModal')).show();
-  }
 
-  // Event Listeners
-  document.getElementById('selectAllCheckbox')?.addEventListener('change', (e) => {
-    document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
-  });
-
-  const searchHandler = () => {
-    const val = document.getElementById('globalSearch')?.value || '';
-    renderTable(val);
-    if(document.getElementById('mobileSearch')) document.getElementById('mobileSearch').value = val;
-  };
-  document.getElementById('globalSearch')?.addEventListener('input', searchHandler);
-  const mobileSearch = document.getElementById('mobileSearch');
-  if(mobileSearch) mobileSearch.addEventListener('input', (e) => {
-    document.getElementById('globalSearch').value = e.target.value;
-    renderTable(e.target.value);
-  });
-
-  const createInvoice = () => showToast("✨ Create new invoice (integration ready)");
-  document.getElementById('createInvoiceBtnHeader')?.addEventListener('click', createInvoice);
-  document.getElementById('createInvoiceBtn2')?.addEventListener('click', createInvoice);
-
-  // Mobile sidebar toggle
-  const toggleBtn = document.getElementById('mobileMenuToggle');
-  const sidebar = document.getElementById('mainSidebar');
-  if(toggleBtn) {
-    toggleBtn.addEventListener('click', () => sidebar.classList.toggle('show-mobile'));
-    document.addEventListener('click', (e) => {
-      if(window.innerWidth < 769 && sidebar.classList.contains('show-mobile') && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
-        sidebar.classList.remove('show-mobile');
-      }
-    });
-  }
-
-  // Initial render
-  renderTable();
-  updateStats();
-</script>
+    // Initial render
+    renderTable();
+    updateStats();
+  </script>
 </body>
+
 </html>
