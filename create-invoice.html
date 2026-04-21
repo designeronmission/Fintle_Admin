@@ -175,8 +175,6 @@
       gap: 12px;
       flex-wrap: wrap;
       border-bottom: 1px solid #e9ecef;
-      padding-bottom: 8px;
-      margin-bottom: 18px;
     }
 
     .category-chip {
@@ -1526,15 +1524,7 @@
                                 d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z" />
                             </svg> Add Line Item
                           </button>
-                          <!-- HTML Redirect Button - opens create-item.html in new tab/window -->
-                          <button class="btn btn-outline-primary rounded-pill px-3" id="goToCreateItemBtn"
-                            type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                              <path fill="currentColor" d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4z" />
-                              <path fill="currentColor"
-                                d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10s10-4.49 10-10S17.51 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8" />
-                            </svg> Create New Item
-                          </button>
+
                         </div>
                       </div>
                       <div id="barcodeScannerPanel" style="display:none;" class="barcode-container mb-3">
@@ -1681,11 +1671,28 @@
             <iconify-icon icon="solar:magnifer-linear"></iconify-icon>
             <input type="text" class="form-control" id="modalSearchInput" placeholder="Search items">
           </div>
+
+          <div class="d-sm-flex align-items-center justify-space-between mb-4">
+
           <div class="item-category-tabs" id="categoryChipsContainer">
             <span class="category-chip active" data-cat="all">All Items</span>
             <span class="category-chip" data-cat="product">Products</span>
             <span class="category-chip" data-cat="service">Services</span>
           </div>
+<div class="ms-auto">
+          <button class="btn btn-outline-primary rounded-pill px-3" id="goToCreateItemBtn"
+                            type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                              <path fill="currentColor" d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4z" />
+                              <path fill="currentColor"
+                                d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10s10-4.49 10-10S17.51 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8" />
+                            </svg> Create New Item
+          </button></div>
+          </div>
+
+
+
+
           <div class="table-responsive">
             <table class="item-table-modal">
               <thead>
