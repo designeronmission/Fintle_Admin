@@ -142,7 +142,7 @@
       cursor: pointer;
       width: 100%;
       font-weight: 600;
-      border-radius: 2px;
+      border-radius: 4px;
       transition: all 0.2s;
     }
 
@@ -217,7 +217,6 @@
       align-items: center;
       gap: 8px;
       background: #fff;
-      border: 1px solid #e2e8f0;
       border-radius: 40px;
       padding: 4px 8px;
       width: fit-content;
@@ -304,9 +303,8 @@
 
     .customer-input-group select {
       flex: 1;
-      border-radius: 12px;
+      border-radius: 4px;
       border: 1px solid #e2e8f0;
-      padding: 0.5rem 0.75rem;
       font-size: 0.9rem;
       background: white;
     }
@@ -315,7 +313,7 @@
       background: #233578;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 4px;
       padding: 0 18px;
       font-size: 0.85rem;
       font-weight: 500;
@@ -446,6 +444,26 @@
       background: #fff;
     }
 
+    /* ENHANCED: Textarea style for item description (like the form-group textarea) */
+    .item-description-textarea {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      background: #fff;
+      transition: all 0.2s ease;
+      resize: vertical;
+      font-family: inherit;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+    .item-description-textarea:focus {
+      border-color: #233578;
+      box-shadow: 0 0 0 0.2rem rgba(35, 53, 120, 0.15);
+      outline: none;
+    }
+
     .tax-mode-dropdown {
       border-radius: 30px;
       border: 1px solid #e2e8f0;
@@ -492,27 +510,71 @@
       background: #f1f5f9;
     }
 
-    .column-toggle-item {
-      padding: 10px 0;
-      border-bottom: 1px solid #edf2f7;
+    /* ENHANCED COLUMN CUSTOMIZATION MODAL - More user friendly */
+    .column-customization-panel {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 8px;
+    }
+    .column-toggle-card {
+      background: white;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+      transition: all 0.2s;
+      border: 1px solid #eef2f6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .column-toggle-card:hover {
+      border-color: #cbd5e1;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .column-toggle-label {
+      font-weight: 600;
+      color: #1e293b;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.95rem;
     }
-
-    .column-toggle-item:last-child {
-      border-bottom: none;
-    }
-
-    .column-toggle-label {
-      font-weight: 500;
-      color: #1e293b;
-    }
-
-    .modal-item-amount {
-      font-weight: 700;
+    .column-toggle-label iconify-icon {
+      font-size: 1.2rem;
       color: #233578;
-      text-align: right;
+    }
+    .form-switch .form-check-input {
+      width: 2.2rem;
+      height: 1.2rem;
+      cursor: pointer;
+    }
+    .form-switch .form-check-input:checked {
+      background-color: #233578;
+      border-color: #233578;
+    }
+
+    /* Fix for modal search spacing */
+    .modal-item-search {
+      margin-bottom: 1.5rem;
+    }
+    .modal-item-search .form-control {
+      height: 48px;
+      font-size: 0.95rem;
+      padding-left: 2.8rem;
+    }
+    .modal-item-search iconify-icon {
+      font-size: 1.3rem;
+      left: 16px;
+    }
+    
+    /* Make table cells align properly */
+    #itemsTableBody td {
+      vertical-align: top;
+      padding: 12px 8px;
+    }
+    .item-row .form-select-sm, .item-row .form-control-sm {
+      height: 38px;
     }
   </style>
 </head>
@@ -669,7 +731,7 @@
                     </div>
                     <div class="col-md-6">
                       <label class="form-label fw-semibold">Currency</label>
-                      <select class="form-select" id="currencySelect" style="border-radius: 12px;">
+                      <select class="form-select" id="currencySelect" style="border-radius: 4px;">
                         <option value="INR">INR (₹)</option>
                         <option value="USD">USD ($)</option>
                         <option value="EUR">EUR (€)</option>
@@ -679,40 +741,39 @@
                     <div class="col-md-6">
                       <label class="form-label fw-semibold">Issue Date</label>
                       <input type="date" class="form-control" id="issueDate" value="2026-04-20"
-                        style="border-radius: 12px;">
+                        style="border-radius: 4px;">
                         <p class="text-muted small mt-1">Choose issue date</p>
                     </div>
 
-
                    <div class="col-md-6">
-  <label class="form-label fw-semibold">Due Date</label>
-  <select class="form-select" id="dueDateTerms" style="border-radius: 12px; margin-bottom: 10px;">
-    <option value="eom">Due end of the month</option>
-    <option value="receipt">Due on Receipt</option>
-    <option value="15">Net 15</option>
-    <option value="30" selected>Net 30</option>
-    <option value="45">Net 45</option>
-    <option value="60">Net 60</option>
-    <option value="custom">Custom</option>
-  </select>
-  <div id="customDateWrapper" style="display: none;">
-    <div class="input-group">
-      <input type="date" class="form-control" id="dueDate" value="2026-05-20" style="border-radius: 12px 0 0 12px;">
-    </div>
-  </div>
-  <div id="dueDateDisplay" class="mt-2">
-    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
-      <iconify-icon icon="solar:calendar-mark-bold" width="16" class="me-1"></iconify-icon>
-      <span id="calculatedDueDate">2026-05-20</span>
-    </span>
-  </div>
-  <small class="text-muted mt-1 d-block" id="dueDateHint">Due 30 days from issue date</small>
-</div>
+                      <label class="form-label fw-semibold">Due Date</label>
+                      <select class="form-select" id="dueDateTerms" style="border-radius: 4px; margin-bottom: 10px;">
+                        <option value="eom">Due end of the month</option>
+                        <option value="receipt">Due on Receipt</option>
+                        <option value="15">Net 15</option>
+                        <option value="30" selected>Net 30</option>
+                        <option value="45">Net 45</option>
+                        <option value="60">Net 60</option>
+                        <option value="custom">Custom</option>
+                      </select>
+                      <div id="customDateWrapper" style="display: none;">
+                        <div class="input-group">
+                          <input type="date" class="form-control" id="dueDate" value="2026-05-20" style="border-radius: 12px 0 0 12px;">
+                        </div>
+                      </div>
+                      <div id="dueDateDisplay" class="mt-2">
+                        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
+                          <iconify-icon icon="solar:calendar-mark-bold" width="16" class="me-1"></iconify-icon>
+                          <span id="calculatedDueDate">2026-05-20</span>
+                        </span>
+                      </div>
+                      <small class="text-muted mt-1 d-block" id="dueDateHint">Due 30 days from issue date</small>
+                    </div>
 
                     <div class="col-md-12">
                       <label class="form-label fw-semibold">Description / Notes</label>
                       <textarea class="form-control" id="invoiceDescription" rows="2"
-                        style="border-radius: 12px;">Thank you for your business. Payment due within 30 days.</textarea>
+                        style="border-radius: 4px;">Thank you for your business. Payment due within 30 days.</textarea>
                     </div>
                   </div>
 
@@ -725,15 +786,15 @@
                               icon="solar:receipt-check-bold-duotone"></iconify-icon> List of Items</h5>
                           <button class="edit-columns-btn" type="button" data-bs-toggle="modal"
                             data-bs-target="#editColumnsModal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
                               <path fill="currentColor"
                                 d="M10.825 22q-.675 0-1.162-.45t-.588-1.1L8.85 18.8q-.325-.125-.612-.3t-.563-.375l-1.55.65q-.625.275-1.25.05t-.975-.8l-1.175-2.05q-.35-.575-.2-1.225t.675-1.075l1.325-1Q4.5 12.5 4.5 12.337v-.675q0-.162.025-.337l-1.325-1Q2.675 9.9 2.525 9.25t.2-1.225L3.9 5.975q.35-.575.975-.8t1.25.05l1.55.65q.275-.2.575-.375t.6-.3l.225-1.65q.1-.65.588-1.1T10.825 2h2.35q.675 0 1.163.45t.587 1.1l.225 1.65q.325.125.613.3t.562.375l1.55-.65q.625-.275 1.25-.05t.975.8l1.175 2.05q.35.575.2 1.225t-.675 1.075l-1.325 1q.025.175.025.338v.674q0 .163-.05.338l1.325 1q.525.425.675 1.075t-.2 1.225l-1.2 2.05q-.35.575-.975.8t-1.25-.05l-1.5-.65q-.275.2-.575.375t-.6.3l-.225 1.65q-.1.65-.587 1.1t-1.163.45zm1.225-6.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5"
                                 style="color: grey" />
-                            </svg> Edit columns
+                            </svg> 
+                            Edit columns
                           </button>
                         </div>
                         <div class="d-flex gap-2">
-                          <!-- Tax Mode Dropdown (Working) -->
                           <div class="dropdown">
                             <button class="btn btn-light dropdown-toggle" type="button" id="taxModeDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
                               <span id="selectedTaxModeText">Tax Exclusive</span>
@@ -744,7 +805,6 @@
                               <li><a class="dropdown-item tax-mode-option" href="#" data-mode="none">No Tax</a></li>
                             </ul>
                           </div>
-
                           <span class="scanner-badge" id="showScannerBtn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                               <path fill="currentColor"
@@ -753,7 +813,6 @@
                                 d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z" />
                             </svg> Scan Barcode
                           </span>
-
                           <button class="btn btn-primary px-4" id="openAddItemsModalBtn" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                               <path fill="currentColor"
@@ -765,7 +824,7 @@
                       <div id="barcodeScannerPanel" style="display:none;" class="barcode-container mb-3">
                         <div class="input-group">
                           <span class="input-group-text bg-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                               <path fill="currentColor"
                                 d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2" />
                               <path fill="currentColor"
@@ -779,16 +838,16 @@
                         <small class="text-muted">Press Enter to find and add item by code or name</small>
                       </div>
                       <div class="table-responsive">
-                        <table class="table table-hover" id="itemsTable" style="border-radius: 2px; overflow: hidden;">
+                        <table class="table table-hover" id="itemsTable" style="border-radius: 4px; overflow: hidden;">
                           <thead class="table-light">
                             <tr>
-                              <th class="col-item" style="width: 28%">Item / Description</th>
+                              <th class="col-item" style="width: 30%;padding-left:10px">Item / Description</th>
                               <th class="col-code" style="width: 10%">Code</th>
                               <th class="col-price" style="width: 10%">Price</th>
                               <th class="col-qty" style="width: 8%">Qty</th>
                               <th class="col-unit" style="width: 10%">Unit</th>
-                              <th class="col-tax" style="width: 15%">Tax Rate</th>
-                              <th style="width: 11%">Amount</th>
+                              <th class="col-tax" style="width: 12%">Tax Rate</th>
+                              <th style="width: 12%">Amount</th>
                               <th style="width: 8%">Action</th>
                             </tr>
                           </thead>
@@ -900,7 +959,7 @@
     </div>
   </div>
 
-  <!-- Add Items Modal -->
+  <!-- Add Items Modal (FIXED SEARCH SPACING) -->
   <div class="modal fade" id="addItemsModal" tabindex="-1" aria-labelledby="addItemsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content">
@@ -911,7 +970,7 @@
         <div class="modal-body px-4 pb-3">
           <div class="modal-item-search mb-4">
             <iconify-icon icon="solar:magnifer-linear"></iconify-icon>
-            <input type="text" class="form-control" id="modalSearchInput" placeholder="Search items">
+            <input type="text" class="form-control" id="modalSearchInput" placeholder="Search items by name or code...">
           </div>
 
           <div class="d-sm-flex align-items-center justify-space-between mb-4">
@@ -964,7 +1023,85 @@
     </div>
   </div>
 
-  <!-- Customer Creation Modal -->
+  <!-- ENHANCED COLUMN CUSTOMIZATION MODAL - User Friendly -->
+  <div class="modal fade" id="editColumnsModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title fw-bold">
+            <iconify-icon icon="solar:settings-bold" class="me-2"></iconify-icon>
+            Customize Invoice Columns
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <p class="text-muted small mb-3">Toggle visibility of columns in the items table. Choose which fields to display.</p>
+          <div class="column-customization-panel">
+            <div class="column-toggle-card">
+              <div class="column-toggle-label">
+                <iconify-icon icon="solar:clipboard-text-line-duotone"></iconify-icon>
+                Item / Description
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input column-toggle" type="checkbox" id="toggleItem" checked>
+              </div>
+            </div>
+            <div class="column-toggle-card">
+              <div class="column-toggle-label">
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M1 19V5h2v14zm3 0V5h2v14zm3 0V5h1v14zm3 0V5h2v14zm3 0V5h3v14zm4 0V5h1v14zm3 0V5h3v14z" style="color: #45548c;"/></svg>
+                Code
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input column-toggle" type="checkbox" id="toggleCode" checked>
+              </div>
+            </div>
+            <div class="column-toggle-card">
+              <div class="column-toggle-label">
+                <iconify-icon icon="solar:tag-price-line-duotone"></iconify-icon>
+                Price
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input column-toggle" type="checkbox" id="togglePrice" checked>
+              </div>
+            </div>
+            <div class="column-toggle-card">
+              <div class="column-toggle-label">
+                <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                Quantity
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input column-toggle" type="checkbox" id="toggleQty" checked>
+              </div>
+            </div>
+            <div class="column-toggle-card">
+              <div class="column-toggle-label">
+                <iconify-icon icon="solar:box-line-duotone"></iconify-icon>
+                Unit
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input column-toggle" type="checkbox" id="toggleUnit" checked>
+              </div>
+            </div>
+            <div class="column-toggle-card">
+              <div class="column-toggle-label">
+                <iconify-icon icon="solar:calculator-line-duotone"></iconify-icon>
+                Tax Rate
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input column-toggle" type="checkbox" id="toggleTax" checked>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" id="applyColumnVisibility">Apply Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer Creation Modal (unchanged, preserved) -->
   <div class="modal fade customer-modal" id="addCustomerModal" tabindex="-1" data-bs-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
@@ -974,103 +1111,18 @@
         </div>
         <div class="modal-body p-4">
           <div class="step-indicator">
-            <div class="step-item active" data-step="1">
-              <div class="step-circle">1</div>
-              <div class="step-label">Basic Info</div>
-            </div>
-            <div class="step-item" data-step="2">
-              <div class="step-circle">2</div>
-              <div class="step-label">Billing Address</div>
-            </div>
-            <div class="step-item" data-step="3">
-              <div class="step-circle">3</div>
-              <div class="step-label">Shipping Address</div>
-            </div>
+            <div class="step-item active" data-step="1"><div class="step-circle">1</div><div class="step-label">Basic Info</div></div>
+            <div class="step-item" data-step="2"><div class="step-circle">2</div><div class="step-label">Billing Address</div></div>
+            <div class="step-item" data-step="3"><div class="step-circle">3</div><div class="step-label">Shipping Address</div></div>
           </div>
-          <div id="step1" class="form-step active-step">
-            <div class="section-title-step fw-bold mb-3">Basic Information</div>
-            <div class="row g-3">
-              <div class="col-md-12"><label class="form-label fw-semibold">Full Name *</label><input type="text"
-                  id="custName" class="form-control" placeholder="Enter customer name"></div>
-              <div class="col-md-6"><label class="form-label fw-semibold">Phone Number *</label><input type="tel"
-                  id="custPhone" class="form-control" placeholder="+91 9876543210"></div>
-              <div class="col-md-6"><label class="form-label fw-semibold">Email Address</label><input type="email"
-                  id="custEmail" class="form-control" placeholder="customer@example.com"></div>
-            </div>
-          </div>
-          <div id="step2" class="form-step">
-            <div class="section-title-step fw-bold mb-3">Billing Address</div>
-            <div class="row g-3">
-              <div class="col-12"><label class="form-label fw-semibold">Address Line</label><textarea id="billAddress"
-                  class="form-control" rows="2" placeholder="Street, Building, Area"></textarea></div>
-              <div class="col-md-4"><label class="form-label">City</label><input id="billCity" class="form-control"
-                  placeholder="City"></div>
-              <div class="col-md-4"><label class="form-label">State</label><input id="billState" class="form-control"
-                  placeholder="State"></div>
-              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="billZip" class="form-control"
-                  placeholder="Zip Code"></div>
-            </div>
-          </div>
-          <div id="step3" class="form-step">
-            <div class="section-title-step fw-bold mb-3">Shipping Address</div>
-            <div class="form-check mb-3"><input class="form-check-input" type="checkbox" id="sameAsBilling"><label
-                class="form-check-label fw-semibold"> Same as Billing Address</label></div>
-            <div class="row g-3">
-              <div class="col-12"><label class="form-label">Address Line</label><textarea id="shipAddress"
-                  class="form-control" rows="2" placeholder="Street, Building, Area"></textarea></div>
-              <div class="col-md-4"><label class="form-label">City</label><input id="shipCity" class="form-control"
-                  placeholder="City"></div>
-              <div class="col-md-4"><label class="form-label">State</label><input id="shipState" class="form-control"
-                  placeholder="State"></div>
-              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="shipZip" class="form-control"
-                  placeholder="Zip Code"></div>
-            </div>
-          </div>
+          <div id="step1" class="form-step active-step"><div class="section-title-step fw-bold mb-3">Basic Information</div><div class="row g-3"><div class="col-md-12"><label class="form-label fw-semibold">Full Name *</label><input type="text" id="custName" class="form-control"></div><div class="col-md-6"><label class="form-label fw-semibold">Phone Number *</label><input type="tel" id="custPhone" class="form-control"></div><div class="col-md-6"><label class="form-label fw-semibold">Email Address</label><input type="email" id="custEmail" class="form-control"></div></div></div>
+          <div id="step2" class="form-step"><div class="section-title-step fw-bold mb-3">Billing Address</div><div class="row g-3"><div class="col-12"><label class="form-label fw-semibold">Address Line</label><textarea id="billAddress" class="form-control" rows="2"></textarea></div><div class="col-md-4"><label class="form-label">City</label><input id="billCity" class="form-control"></div><div class="col-md-4"><label class="form-label">State</label><input id="billState" class="form-control"></div><div class="col-md-4"><label class="form-label">Zip Code</label><input id="billZip" class="form-control"></div></div></div>
+          <div id="step3" class="form-step"><div class="section-title-step fw-bold mb-3">Shipping Address</div><div class="form-check mb-3"><input class="form-check-input" type="checkbox" id="sameAsBilling"><label class="form-check-label fw-semibold"> Same as Billing Address</label></div><div class="row g-3"><div class="col-12"><label class="form-label">Address Line</label><textarea id="shipAddress" class="form-control" rows="2"></textarea></div><div class="col-md-4"><label class="form-label">City</label><input id="shipCity" class="form-control"></div><div class="col-md-4"><label class="form-label">State</label><input id="shipState" class="form-control"></div><div class="col-md-4"><label class="form-label">Zip Code</label><input id="shipZip" class="form-control"></div></div></div>
         </div>
         <div class="modal-footer border-0 px-4 pb-4">
           <button class="btn btn-secondary" id="prevStepBtn" disabled>Previous</button>
           <button class="btn btn-primary" id="nextStepBtn">Next</button>
           <button class="btn btn-success" id="submitCustomerBtn" style="display:none;">Create Customer</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Edit Columns Modal -->
-  <div class="modal fade" id="editColumnsModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header"><h5 class="modal-title fw-bold">Customize invoice columns</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-        <div class="modal-body">
-          <p class="text-muted small mb-3">Toggle visibility of columns in the items table.</p>
-          <div class="column-toggle-item"><span class="column-toggle-label">Item (Description)</span>
-            <div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox"
-                id="toggleItem" checked></div>
-          </div>
-          <div class="column-toggle-item"><span class="column-toggle-label">Code</span>
-            <div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox"
-                id="toggleCode" checked></div>
-          </div>
-          <div class="column-toggle-item"><span class="column-toggle-label">Price</span>
-            <div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox"
-                id="togglePrice" checked></div>
-          </div>
-          <div class="column-toggle-item"><span class="column-toggle-label">Quantity</span>
-            <div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox"
-                id="toggleQty" checked></div>
-          </div>
-          <div class="column-toggle-item"><span class="column-toggle-label">Unit</span>
-            <div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox"
-                id="toggleUnit" checked></div>
-          </div>
-          <div class="column-toggle-item"><span class="column-toggle-label">Tax rate</span>
-            <div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox"
-                id="toggleTax" checked></div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-          <button class="btn btn-primary" id="applyColumnVisibility">Apply</button>
         </div>
       </div>
     </div>
@@ -1087,7 +1139,7 @@
   <script src="assets/libs/js/apexcharts.min.js"></script>
   <script src="assets/libs/js/dashboard1.js"></script>
 
-  <script>
+<script>
     (function () {
       // ========== DATA ==========
       let customers = [
@@ -1099,7 +1151,7 @@
         { id: "i3", name: "Cloud Hosting", type: "service", code: "CLD99", unit: "Year", price: 4800, taxRate: 5, stock: 100 }
       ];
       let modalSelectedItems = [];
-      let globalTaxMode = 'exclusive'; // 'exclusive', 'inclusive', 'none'
+      let globalTaxMode = 'exclusive';
 
       // ========== HELPERS ==========
       function getSymbol() { const m = { INR: '₹', USD: '$', EUR: '€' }; return m[document.getElementById('currencySelect')?.value] || '₹'; }
@@ -1120,24 +1172,41 @@
       }
       function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
 
-      // ========== CREATE ITEM ROW ==========
+      // ========== CREATE ITEM ROW WITH VISIBLE DROPDOWN ICON ==========
       function createItemRow(itemObj, qty = 1) {
         const tr = document.createElement('tr'); tr.className = 'item-row';
+        
+        // Styled dropdown with custom arrow icon - using inline styles for better visibility
         const itemSelectHtml = `
-          <select class="form-select form-select-sm item-select" style="margin-bottom:5px;">
-            ${inventory.map(inv => `<option value="${inv.id}" ${inv.id === itemObj.id ? 'selected' : ''}>${inv.name}</option>`).join('')}
-          </select>
-          <input type="text" class="form-control form-control-sm item-description-box" placeholder="Description (optional)" value="${escapeHtml(itemObj.description || '')}">
+          <div class="custom-select-wrapper" style="position: relative; width: 100%;">
+            <select class="form-select form-select-sm item-select" style="margin-bottom:5px; appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 35px !important; cursor: pointer; background-color: #fff; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%; height: 38px; font-size: 0.85rem;">
+              ${inventory.map(inv => `<option value="${inv.id}" ${inv.id === itemObj.id ? 'selected' : ''}>${inv.name}</option>`).join('')}
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; z-index: 10;">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          <textarea class="item-description-textarea" rows="2" placeholder="Item description / additional notes..." style="width: 100%; margin-top: 6px; padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.8rem; resize: vertical; font-family: inherit;">${escapeHtml(itemObj.description || '')}</textarea>
         `;
+        
         tr.innerHTML = `
           <td class="col-item">${itemSelectHtml}</td>
-          <td class="col-code"><input type="text" class="form-control form-control-sm item-code" value="${escapeHtml(itemObj.code || '')}" readonly></td>
-          <td class="col-price"><input type="number" step="any" class="form-control form-control-sm item-price" value="${itemObj.price}"></td>
-          <td class="col-qty"><input type="number" step="any" class="form-control form-control-sm item-qty" value="${qty}"></td>
-          <td class="col-unit"><input type="text" class="form-control form-control-sm item-unit" value="${escapeHtml(itemObj.unit || 'PCS')}"></td>
-          <td class="col-tax"><select class="form-select form-select-sm tax-rate-select">${[0, 5, 12, 18, 28].map(r => `<option value="${r}" ${r == itemObj.taxRate ? 'selected' : ''}>${r}%</option>`).join('')}</select></td>
-          <td class="row-amount fw-semibold text-primary">${formatMoney(itemObj.price * qty)}</td>
-          <td class="text-center"><button class="btn btn-sm delete-row-btn"><iconify-icon icon="solar:trash-bin-trash-linear" width="16"></iconify-icon></button></td>
+          <td class="col-code"><input type="text" class="form-control form-control-sm item-code" value="${escapeHtml(itemObj.code || '')}" readonly style="background-color: #f8fafc; border-radius: 8px;"></td>
+          <td class="col-price"><input type="number" step="any" class="form-control form-control-sm item-price" value="${itemObj.price}" style="border-radius: 8px;"></td>
+          <td class="col-qty"><input type="number" step="any" class="form-control form-control-sm item-qty" value="${qty}" style="border-radius: 8px;"></td>
+          <td class="col-unit"><input type="text" class="form-control form-control-sm item-unit" value="${escapeHtml(itemObj.unit || 'PCS')}" style="border-radius: 8px;"></td>
+          <td class="col-tax">
+            <div class="custom-select-wrapper" style="position: relative; width: 100%;">
+              <select class="form-select form-select-sm tax-rate-select" style="appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 35px !important; cursor: pointer; background-color: #fff; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%; height: 38px;">
+                ${[0, 5, 12, 18, 28].map(r => `<option value="${r}" ${r == itemObj.taxRate ? 'selected' : ''}>${r}%</option>`).join('')}
+              </select>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; z-index: 10;">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+           </td>
+          <td class="row-amount fw-semibold text-dark" style="white-space: nowrap;">${formatMoney(itemObj.price * qty)}</td>
+          <td class="text-center"><button type="button" class="btn btn-sm delete-row-btn" style="background: none; border: none; color: #ef4444; cursor: pointer;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></td>
         `;
 
         const selectEl = tr.querySelector('.item-select');
@@ -1163,7 +1232,7 @@
         return tr;
       }
 
-      // ========== RECALC TOTALS (UPDATED FOR TAX MODE) ==========
+      // ========== RECALC TOTALS ==========
       function recalcTotals() {
         const rows = document.querySelectorAll('#itemsTableBody .item-row');
         let subtotal = 0, totalTax = 0, taxableAmt = 0;
@@ -1196,26 +1265,35 @@
             taxMap.set(taxRate, (taxMap.get(taxRate) || 0) + taxAmt);
           }
           
-          row.querySelector('.row-amount').innerText = formatMoney(finalAmount);
+          const amountCell = row.querySelector('.row-amount');
+          if (amountCell) amountCell.innerText = formatMoney(finalAmount);
         });
 
         const shipping = parseFloat(document.getElementById('shippingCharge')?.value) || 0;
         const netTotal = subtotal + totalTax + shipping;
 
-        document.getElementById('subtotalDisplay').innerText = formatMoney(subtotal);
-        document.getElementById('taxableAmountDisplay').innerText = formatMoney(taxableAmt);
-        document.getElementById('taxDisplay').innerHTML = formatMoney(totalTax);
-        document.getElementById('netTotalDisplay').innerHTML = formatMoney(netTotal);
+        const subtotalEl = document.getElementById('subtotalDisplay');
+        const taxableEl = document.getElementById('taxableAmountDisplay');
+        const taxEl = document.getElementById('taxDisplay');
+        const netEl = document.getElementById('netTotalDisplay');
+        
+        if (subtotalEl) subtotalEl.innerText = formatMoney(subtotal);
+        if (taxableEl) taxableEl.innerText = formatMoney(taxableAmt);
+        if (taxEl) taxEl.innerHTML = formatMoney(totalTax);
+        if (netEl) netEl.innerHTML = formatMoney(netTotal);
 
-        let breakdownHtml = '';
-        if (taxMap.size > 0) {
-          for (let [rate, amt] of taxMap) {
-            breakdownHtml += `<div class='d-flex justify-content-between p-2'><span>GST ${rate}%</span><span>${formatMoney(amt)}</span></div>`;
+        const breakdownEl = document.getElementById('taxBreakdownDetails');
+        if (breakdownEl) {
+          let breakdownHtml = '';
+          if (taxMap.size > 0) {
+            for (let [rate, amt] of taxMap) {
+              breakdownHtml += `<div class='d-flex justify-content-between p-2'><span>GST ${rate}%</span><span>${formatMoney(amt)}</span></div>`;
+            }
+          } else {
+            breakdownHtml = '<span class="text-muted p-2">No taxes</span>';
           }
-        } else {
-          breakdownHtml = '<span class="text-muted p-2">No taxes</span>';
+          breakdownEl.innerHTML = breakdownHtml;
         }
-        document.getElementById('taxBreakdownDetails').innerHTML = breakdownHtml;
 
         updateBalance(netTotal);
       }
@@ -1223,11 +1301,15 @@
       function updateBalance(totalDue) {
         let rec = parseFloat(document.getElementById('amountReceived')?.value) || 0;
         const isPaid = document.getElementById('markAsPaidToggle')?.checked;
-        if (isPaid) { rec = totalDue; document.getElementById('amountReceived').value = totalDue; }
+        if (isPaid) { rec = totalDue; const recEl = document.getElementById('amountReceived'); if (recEl) recEl.value = totalDue; }
         const balance = Math.max(0, totalDue - rec);
-        document.getElementById('balanceDisplay').innerText = formatMoney(balance);
-        document.getElementById('paidStatusLabel').innerText = isPaid ? 'Paid' : 'Unpaid';
-        document.getElementById('paidStatusLabel').className = isPaid ? 'badge bg-success-subtle text-success px-3 py-1 rounded-pill' : 'badge bg-warning-subtle text-warning px-3 py-1 rounded-pill';
+        const balanceEl = document.getElementById('balanceDisplay');
+        if (balanceEl) balanceEl.innerText = formatMoney(balance);
+        const paidLabel = document.getElementById('paidStatusLabel');
+        if (paidLabel) {
+          paidLabel.innerText = isPaid ? 'Paid' : 'Unpaid';
+          paidLabel.className = isPaid ? 'badge bg-success-subtle text-success px-3 py-1 rounded-pill' : 'badge bg-warning-subtle text-warning px-3 py-1 rounded-pill';
+        }
       }
 
       // ========== MODAL LIBRARY ==========
@@ -1237,26 +1319,28 @@
         const cat = document.querySelector('.category-chip.active')?.dataset.cat || 'all';
         let filtered = inventory.filter(i => (cat === 'all' || i.type === cat) && i.name.toLowerCase().includes(search));
 
-        tbody.innerHTML = filtered.map(item => {
-          const selectedEntry = modalSelectedItems.find(s => s.inventoryItem.id === item.id);
-          const selectedQty = selectedEntry ? selectedEntry.quantity : 0;
-          const amount = item.price * selectedQty;
-          return `<tr>
-            <td class="fw-semibold">${item.name}</td>
-            <td><span class="badge bg-secondary">${item.type}</span></td>
-            <td>${item.stock > 0 ? item.stock : '∞'}</td>
-            <td>${getSymbol()} ${item.price.toFixed(2)}</td>
-            <td>${item.unit}</td>
-            <td>
-              <div class="quantity-control-wrapper">
-                <button class="qty-btn qty-decr" data-id="${item.id}">-</button>
-                <input type="text" class="qty-value" data-id="${item.id}" value="${selectedQty}" readonly>
-                <button class="qty-btn qty-incr" data-id="${item.id}">+</button>
-              </div>
-            </td>
-            <td class="modal-item-amount">${getSymbol()} ${amount.toFixed(2)}</td>
-          </tr>`;
-        }).join('');
+        if (tbody) {
+          tbody.innerHTML = filtered.map(item => {
+            const selectedEntry = modalSelectedItems.find(s => s.inventoryItem.id === item.id);
+            const selectedQty = selectedEntry ? selectedEntry.quantity : 0;
+            const amount = item.price * selectedQty;
+            return `<tr>
+              <td class="fw-semibold">${item.name}</td>
+              <td><span class="badge bg-secondary">${item.type}</span></td>
+              <td>${item.stock > 0 ? item.stock : '∞'}</td>
+              <td>${getSymbol()} ${item.price.toFixed(2)}</td>
+              <td>${item.unit}</td>
+              <td>
+                <div class="quantity-control-wrapper" style="display: flex; align-items: center; gap: 8px;">
+                  <button type="button" class="qty-btn qty-decr" data-id="${item.id}" style="width: 28px; height: 28px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer;">-</button>
+                  <input type="text" class="qty-value" data-id="${item.id}" value="${selectedQty}" readonly style="width: 45px; text-align: center; border: 1px solid #e2e8f0; border-radius: 6px; padding: 4px;">
+                  <button type="button" class="qty-btn qty-incr" data-id="${item.id}" style="width: 28px; height: 28px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer;">+</button>
+                </div>
+              </td>
+              <td class="modal-item-amount">${getSymbol()} ${amount.toFixed(2)}</td>
+            </tr>`;
+          }).join('');
+        }
 
         attachModalEvents();
         updateModalCount();
@@ -1286,14 +1370,18 @@
 
       function updateModalCount() {
         const total = modalSelectedItems.reduce((s, i) => s + i.quantity, 0);
-        document.getElementById('selectedCountNumber').innerText = total;
-        document.getElementById('confirmAddToBillBtn').disabled = total === 0;
+        const countEl = document.getElementById('selectedCountNumber');
+        const confirmBtn = document.getElementById('confirmAddToBillBtn');
+        if (countEl) countEl.innerText = total;
+        if (confirmBtn) confirmBtn.disabled = total === 0;
       }
 
       function addSelectedToInvoice() {
         if (!modalSelectedItems.length) { showToast('No items selected', 'danger'); return false; }
         const tbody = document.getElementById('itemsTableBody');
-        modalSelectedItems.forEach(sel => { tbody.appendChild(createItemRow(sel.inventoryItem, sel.quantity)); });
+        if (tbody) {
+          modalSelectedItems.forEach(sel => { tbody.appendChild(createItemRow(sel.inventoryItem, sel.quantity)); });
+        }
         recalcTotals();
         showToast(`${modalSelectedItems.length} item(s) added to invoice!`, 'success');
         modalSelectedItems = [];
@@ -1303,12 +1391,12 @@
 
       // ========== COLUMN VISIBILITY ==========
       function applyColumnVisibility() {
-        const showItem = document.getElementById('toggleItem').checked;
-        const showCode = document.getElementById('toggleCode').checked;
-        const showPrice = document.getElementById('togglePrice').checked;
-        const showQty = document.getElementById('toggleQty').checked;
-        const showUnit = document.getElementById('toggleUnit').checked;
-        const showTax = document.getElementById('toggleTax').checked;
+        const showItem = document.getElementById('toggleItem')?.checked;
+        const showCode = document.getElementById('toggleCode')?.checked;
+        const showPrice = document.getElementById('togglePrice')?.checked;
+        const showQty = document.getElementById('toggleQty')?.checked;
+        const showUnit = document.getElementById('toggleUnit')?.checked;
+        const showTax = document.getElementById('toggleTax')?.checked;
 
         document.querySelectorAll('.col-item').forEach(el => el.style.display = showItem ? '' : 'none');
         document.querySelectorAll('.col-code').forEach(el => el.style.display = showCode ? '' : 'none');
@@ -1317,26 +1405,26 @@
         document.querySelectorAll('.col-unit').forEach(el => el.style.display = showUnit ? '' : 'none');
         document.querySelectorAll('.col-tax').forEach(el => el.style.display = showTax ? '' : 'none');
 
-        document.querySelectorAll('#itemsTable thead th').forEach((th, idx) => {
-          if (idx === 0 && !showItem) th.style.display = 'none';
-          else if (idx === 1 && !showCode) th.style.display = 'none';
-          else if (idx === 2 && !showPrice) th.style.display = 'none';
-          else if (idx === 3 && !showQty) th.style.display = 'none';
-          else if (idx === 4 && !showUnit) th.style.display = 'none';
-          else if (idx === 5 && !showTax) th.style.display = 'none';
-          else th.style.display = '';
+        const headers = document.querySelectorAll('#itemsTable thead th');
+        const colMap = [showItem, showCode, showPrice, showQty, showUnit, showTax];
+        headers.forEach((th, idx) => {
+          if (idx < colMap.length) th.style.display = colMap[idx] ? '' : 'none';
         });
 
-        bootstrap.Modal.getInstance(document.getElementById('editColumnsModal')).hide();
+        const modal = bootstrap.Modal.getInstance(document.getElementById('editColumnsModal'));
+        if (modal) modal.hide();
+        showToast('Column visibility updated', 'info');
       }
 
       function handleBarcodeScan(code) {
         const found = inventory.find(i => i.code === code || i.name.toLowerCase().includes(code.toLowerCase()));
         if (found) {
-          document.getElementById('itemsTableBody').appendChild(createItemRow(found, 1));
+          const tbody = document.getElementById('itemsTableBody');
+          if (tbody) tbody.appendChild(createItemRow(found, 1));
           recalcTotals();
           showToast(`Scanned: ${found.name} added`, 'success');
-          document.getElementById('barcodeScannerPanel').style.display = 'none';
+          const panel = document.getElementById('barcodeScannerPanel');
+          if (panel) panel.style.display = 'none';
         } else { showToast('Item not found', 'danger'); }
       }
 
@@ -1356,26 +1444,17 @@
       }
 
       function calculateDueDate(term) {
-        const issueDate = issueDateInput.value;
+        const issueDate = issueDateInput?.value;
         if (!issueDate) return null;
-        
         const date = new Date(issueDate);
-        
         switch(term) {
-          case 'eom':
-            return getEndOfMonth(date);
-          case 'receipt':
-            return date;
-          case '15':
-          case '30':
-          case '45':
-          case '60':
+          case 'eom': return getEndOfMonth(date);
+          case 'receipt': return date;
+          case '15': case '30': case '45': case '60':
             date.setDate(date.getDate() + parseInt(term));
             return date;
-          case 'custom':
-            return dueDateInput.value ? new Date(dueDateInput.value) : null;
-          default:
-            return null;
+          case 'custom': return dueDateInput?.value ? new Date(dueDateInput.value) : null;
+          default: return null;
         }
       }
 
@@ -1388,32 +1467,24 @@
       }
 
       function updateDueDateDisplay() {
+        if (!dueDateTerms) return;
         const term = dueDateTerms.value;
-        
         if (term === 'custom') {
-          customDateWrapper.style.display = 'block';
-          const customDate = dueDateInput.value;
-          if (customDate) {
+          if (customDateWrapper) customDateWrapper.style.display = 'block';
+          const customDate = dueDateInput?.value;
+          if (customDate && calculatedDueDateSpan) {
             calculatedDueDateSpan.textContent = customDate;
-            dueDateHint.textContent = 'Custom due date selected';
+            if (dueDateHint) dueDateHint.textContent = 'Custom due date selected';
           }
         } else {
-          customDateWrapper.style.display = 'none';
+          if (customDateWrapper) customDateWrapper.style.display = 'none';
           const calculatedDate = calculateDueDate(term);
-          if (calculatedDate) {
+          if (calculatedDate && calculatedDueDateSpan) {
             const formattedDate = formatDateForDisplay(calculatedDate);
             calculatedDueDateSpan.textContent = formattedDate;
-            dueDateInput.value = formattedDate;
-            
-            const hintText = {
-              'eom': 'Due at the end of this month',
-              'receipt': 'Due immediately upon receipt',
-              '15': 'Due 15 days from issue date',
-              '30': 'Due 30 days from issue date',
-              '45': 'Due 45 days from issue date',
-              '60': 'Due 60 days from issue date'
-            };
-            dueDateHint.textContent = hintText[term] || '';
+            if (dueDateInput) dueDateInput.value = formattedDate;
+            const hintText = { 'eom': 'Due at the end of this month', 'receipt': 'Due immediately upon receipt', '15': 'Due 15 days from issue date', '30': 'Due 30 days from issue date', '45': 'Due 45 days from issue date', '60': 'Due 60 days from issue date' };
+            if (dueDateHint) dueDateHint.textContent = hintText[term] || '';
           }
         }
       }
@@ -1422,16 +1493,31 @@
       document.addEventListener('DOMContentLoaded', () => {
         populateCustomerDropdown();
         const tbody = document.getElementById('itemsTableBody');
-        tbody.appendChild(createItemRow({ id: 'i2', name: 'Web Development Services', price: 2500, unit: 'Project', taxRate: 18, code: 'WEB01' }, 1));
-        tbody.appendChild(createItemRow({ id: 'i3', name: 'Cloud Hosting', price: 480, unit: 'Year', taxRate: 5, code: 'CLD99' }, 1));
+        if (tbody) {
+          tbody.appendChild(createItemRow({ id: 'i2', name: 'Web Development Services', price: 2500, unit: 'Project', taxRate: 18, code: 'WEB01' }, 1));
+          tbody.appendChild(createItemRow({ id: 'i3', name: 'Cloud Hosting', price: 480, unit: 'Year', taxRate: 5, code: 'CLD99' }, 1));
+        }
         recalcTotals();
 
         const itemsModal = new bootstrap.Modal(document.getElementById('addItemsModal'));
 
-        document.getElementById('openAddItemsModalBtn').onclick = () => { modalSelectedItems = []; renderModalLibrary(); itemsModal.show(); };
-        document.getElementById('addLineItemBtns').onclick = () => { modalSelectedItems = []; renderModalLibrary(); itemsModal.show(); };
-        document.getElementById('confirmAddToBillBtn').onclick = () => { addSelectedToInvoice(); itemsModal.hide(); };
-        document.getElementById('modalSearchInput')?.addEventListener('input', () => renderModalLibrary());
+        const openModalBtn = document.getElementById('openAddItemsModalBtn');
+        if (openModalBtn) {
+          openModalBtn.onclick = () => { modalSelectedItems = []; renderModalLibrary(); itemsModal.show(); };
+        }
+        
+        const addLineBtn = document.getElementById('addLineItemBtns');
+        if (addLineBtn) {
+          addLineBtn.onclick = () => { modalSelectedItems = []; renderModalLibrary(); itemsModal.show(); };
+        }
+        
+        const confirmBtn = document.getElementById('confirmAddToBillBtn');
+        if (confirmBtn) {
+          confirmBtn.onclick = () => { addSelectedToInvoice(); itemsModal.hide(); };
+        }
+        
+        const modalSearch = document.getElementById('modalSearchInput');
+        if (modalSearch) modalSearch.addEventListener('input', () => renderModalLibrary());
 
         document.querySelectorAll('.category-chip').forEach(c => c.addEventListener('click', function () {
           document.querySelectorAll('.category-chip').forEach(x => x.classList.remove('active'));
@@ -1439,153 +1525,183 @@
           renderModalLibrary();
         }));
 
-        document.getElementById('goToCreateItemBtn')?.addEventListener('click', (e) => {
-          e.preventDefault();
-          window.open('create-item.html', '_blank');
-          showToast('Opening Create Item page in new tab', 'info');
-        });
+        const goToCreateBtn = document.getElementById('goToCreateItemBtn');
+        if (goToCreateBtn) {
+          goToCreateBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open('create-item.html', '_blank');
+            showToast('Opening Create Item page in new tab', 'info');
+          });
+        }
 
-        // TAX MODE DROPDOWN - FIXED
+        // TAX MODE DROPDOWN
         document.querySelectorAll('.tax-mode-option').forEach(option => {
           option.addEventListener('click', function(e) {
             e.preventDefault();
             const mode = this.dataset.mode;
             globalTaxMode = mode;
-            
-            const modeText = {
-              'exclusive': 'Tax Exclusive',
-              'inclusive': 'Tax Inclusive',
-              'none': 'No Tax'
-            };
-            document.getElementById('selectedTaxModeText').textContent = modeText[mode];
-            
+            const modeText = { 'exclusive': 'Tax Exclusive', 'inclusive': 'Tax Inclusive', 'none': 'No Tax' };
+            const selectedText = document.getElementById('selectedTaxModeText');
+            if (selectedText) selectedText.textContent = modeText[mode];
             recalcTotals();
             showToast(`Tax mode set to ${modeText[mode]}`, 'info');
           });
         });
 
-        document.getElementById('currencySelect')?.addEventListener('change', () => recalcTotals());
-        document.getElementById('shippingCharge')?.addEventListener('input', () => recalcTotals());
-        document.getElementById('amountReceived')?.addEventListener('input', () => {
-          const net = parseFloat(document.getElementById('netTotalDisplay')?.innerText.replace(/[^0-9.-]/g, '')) || 0;
-          updateBalance(net);
-        });
-        document.getElementById('markAsPaidToggle')?.addEventListener('change', function () {
-          const net = parseFloat(document.getElementById('netTotalDisplay')?.innerText.replace(/[^0-9.-]/g, '')) || 0;
-          if (this.checked) document.getElementById('amountReceived').value = net;
-          updateBalance(net);
-        });
+        const currencySelect = document.getElementById('currencySelect');
+        if (currencySelect) currencySelect.addEventListener('change', () => recalcTotals());
+        
+        const shippingCharge = document.getElementById('shippingCharge');
+        if (shippingCharge) shippingCharge.addEventListener('input', () => recalcTotals());
+        
+        const amountReceived = document.getElementById('amountReceived');
+        if (amountReceived) {
+          amountReceived.addEventListener('input', () => {
+            const netEl = document.getElementById('netTotalDisplay');
+            const net = netEl ? parseFloat(netEl.innerText.replace(/[^0-9.-]/g, '')) || 0 : 0;
+            updateBalance(net);
+          });
+        }
+        
+        const markAsPaid = document.getElementById('markAsPaidToggle');
+        if (markAsPaid) {
+          markAsPaid.addEventListener('change', function () {
+            const netEl = document.getElementById('netTotalDisplay');
+            const net = netEl ? parseFloat(netEl.innerText.replace(/[^0-9.-]/g, '')) || 0 : 0;
+            if (this.checked) {
+              const recEl = document.getElementById('amountReceived');
+              if (recEl) recEl.value = net;
+            }
+            updateBalance(net);
+          });
+        }
 
-        document.getElementById('recordPaymentBtn')?.addEventListener('click', () => showToast('Payment recorded successfully', 'success'));
+        const recordPaymentBtn = document.getElementById('recordPaymentBtn');
+        if (recordPaymentBtn) recordPaymentBtn.addEventListener('click', () => showToast('Payment recorded successfully', 'success'));
 
         // Barcode
         const scannerBtn = document.getElementById('showScannerBtn');
         const scannerPanel = document.getElementById('barcodeScannerPanel');
         const closeScanner = document.getElementById('closeScannerBtn');
         const barcodeInput = document.getElementById('barcodeInput');
-        scannerBtn?.addEventListener('click', () => { scannerPanel.style.display = 'block'; barcodeInput?.focus(); });
-        closeScanner?.addEventListener('click', () => scannerPanel.style.display = 'none');
-        barcodeInput?.addEventListener('keypress', (e) => { if (e.key === 'Enter') { handleBarcodeScan(e.target.value); e.target.value = ''; } });
+        
+        if (scannerBtn) {
+          scannerBtn.addEventListener('click', () => { 
+            if (scannerPanel) scannerPanel.style.display = 'block'; 
+            if (barcodeInput) barcodeInput.focus(); 
+          });
+        }
+        if (closeScanner) {
+          closeScanner.addEventListener('click', () => { if (scannerPanel) scannerPanel.style.display = 'none'; });
+        }
+        if (barcodeInput) {
+          barcodeInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { handleBarcodeScan(e.target.value); e.target.value = ''; } });
+        }
 
         // Column visibility
-        document.getElementById('applyColumnVisibility').addEventListener('click', applyColumnVisibility);
+        const applyVisBtn = document.getElementById('applyColumnVisibility');
+        if (applyVisBtn) applyVisBtn.addEventListener('click', applyColumnVisibility);
 
         // Due Date Logic
-        issueDateInput.addEventListener('change', function() {
-          dueDateInput.min = this.value;
-          updateDueDateDisplay();
-        });
-
-        dueDateTerms.addEventListener('change', function() {
-          if (this.value === 'custom') {
-            customDateWrapper.style.display = 'block';
-            dueDateInput.min = issueDateInput.value;
-            const currentDue = dueDateInput.value;
-            if (currentDue) {
-              calculatedDueDateSpan.textContent = currentDue;
+        if (issueDateInput) {
+          issueDateInput.addEventListener('change', function() { if (dueDateInput) dueDateInput.min = this.value; updateDueDateDisplay(); });
+        }
+        if (dueDateTerms) dueDateTerms.addEventListener('change', function() { updateDueDateDisplay(); });
+        if (dueDateInput) {
+          dueDateInput.addEventListener('change', function() { 
+            if (dueDateTerms && dueDateTerms.value === 'custom' && calculatedDueDateSpan) {
+              calculatedDueDateSpan.textContent = this.value;
+              if (dueDateHint) dueDateHint.textContent = 'Custom due date selected';
             }
-            dueDateHint.textContent = 'Select a custom due date';
-          } else {
-            customDateWrapper.style.display = 'none';
-            updateDueDateDisplay();
-          }
-        });
+          });
+        }
+        updateDueDateDisplay();
 
-        dueDateInput.addEventListener('change', function() {
-          if (dueDateTerms.value === 'custom') {
-            calculatedDueDateSpan.textContent = this.value;
-            dueDateHint.textContent = 'Custom due date selected';
-          }
-        });
-
-        // Customer Modal
+        // Customer Modal Logic
         let step = 1;
         const custModal = new bootstrap.Modal(document.getElementById('addCustomerModal'));
-        document.getElementById('createCustomerBtn')?.addEventListener('click', () => custModal.show());
+        const createCustomerBtn = document.getElementById('createCustomerBtn');
+        if (createCustomerBtn) createCustomerBtn.addEventListener('click', () => custModal.show());
 
         function updateStepUI() {
-          document.querySelectorAll('.step-item').forEach((el, i) => {
-            if (i + 1 < step) el.classList.add('completed'); else el.classList.remove('completed');
-            if (i + 1 === step) el.classList.add('active'); else el.classList.remove('active');
+          document.querySelectorAll('.step-item').forEach((el, i) => { 
+            if (i + 1 < step) el.classList.add('completed'); 
+            else el.classList.remove('completed'); 
+            if (i + 1 === step) el.classList.add('active'); 
+            else el.classList.remove('active'); 
           });
-          document.querySelectorAll('.form-step').forEach((el, i) => {
-            if (i + 1 === step) el.classList.add('active-step'); else el.classList.remove('active-step');
+          document.querySelectorAll('.form-step').forEach((el, i) => { 
+            if (i + 1 === step) el.classList.add('active-step'); 
+            else el.classList.remove('active-step'); 
           });
-          document.getElementById('prevStepBtn').disabled = (step === 1);
-          if (step === 3) {
-            document.getElementById('nextStepBtn').style.display = 'none';
-            document.getElementById('submitCustomerBtn').style.display = 'inline-flex';
-          } else {
-            document.getElementById('nextStepBtn').style.display = 'inline-flex';
-            document.getElementById('submitCustomerBtn').style.display = 'none';
+          const prevBtn = document.getElementById('prevStepBtn');
+          if (prevBtn) prevBtn.disabled = (step === 1);
+          const nextBtn = document.getElementById('nextStepBtn');
+          const submitBtn = document.getElementById('submitCustomerBtn');
+          if (step === 3) { 
+            if (nextBtn) nextBtn.style.display = 'none'; 
+            if (submitBtn) submitBtn.style.display = 'inline-flex'; 
+          } else { 
+            if (nextBtn) nextBtn.style.display = 'inline-flex'; 
+            if (submitBtn) submitBtn.style.display = 'none'; 
           }
         }
 
-        document.getElementById('nextStepBtn')?.addEventListener('click', () => { if (step < 3) { step++; updateStepUI(); } });
-        document.getElementById('prevStepBtn')?.addEventListener('click', () => { if (step > 1) { step--; updateStepUI(); } });
-        document.getElementById('submitCustomerBtn')?.addEventListener('click', () => {
-          const name = document.getElementById('custName').value;
-          if (!name) { showToast('Customer name required', 'danger'); return; }
-          const newCust = {
-            id: `CUST-${customers.length + 1}`,
-            name,
-            email: document.getElementById('custEmail').value,
-            phone: document.getElementById('custPhone').value,
-            billing: {
-              address: document.getElementById('billAddress').value,
-              city: document.getElementById('billCity').value,
-              state: document.getElementById('billState').value,
-              zip: document.getElementById('billZip').value
-            }
-          };
-          customers.push(newCust);
-          populateCustomerDropdown();
-          custModal.hide();
-          showToast(`Customer ${name} created`);
-          step = 1;
-          updateStepUI();
-          ['custName', 'custPhone', 'custEmail', 'billAddress', 'billCity', 'billState', 'billZip', 'shipAddress', 'shipCity', 'shipState', 'shipZip'].forEach(id => {
-            const el = document.getElementById(id); if (el) el.value = '';
-          });
-        });
-
-        document.getElementById('sameAsBilling')?.addEventListener('change', (e) => {
-          if (e.target.checked) {
-            document.getElementById('shipAddress').value = document.getElementById('billAddress').value;
-            document.getElementById('shipCity').value = document.getElementById('billCity').value;
-            document.getElementById('shipState').value = document.getElementById('billState').value;
-            document.getElementById('shipZip').value = document.getElementById('billZip').value;
-          }
-        });
-
-        updateStepUI();
+        const nextStep = document.getElementById('nextStepBtn');
+        if (nextStep) nextStep.addEventListener('click', () => { if (step < 3) { step++; updateStepUI(); } });
         
-        // Initialize due date display
-        setTimeout(() => {
-          updateDueDateDisplay();
-        }, 100);
+        const prevStep = document.getElementById('prevStepBtn');
+        if (prevStep) prevStep.addEventListener('click', () => { if (step > 1) { step--; updateStepUI(); } });
+        
+        const submitCustomer = document.getElementById('submitCustomerBtn');
+        if (submitCustomer) {
+          submitCustomer.addEventListener('click', () => {
+            const name = document.getElementById('custName')?.value;
+            if (!name) { showToast('Customer name required', 'danger'); return; }
+            const newCust = { 
+              id: `CUST-${customers.length + 1}`, 
+              name, 
+              email: document.getElementById('custEmail')?.value || '', 
+              phone: document.getElementById('custPhone')?.value || '', 
+              billing: { 
+                address: document.getElementById('billAddress')?.value || '', 
+                city: document.getElementById('billCity')?.value || '', 
+                state: document.getElementById('billState')?.value || '', 
+                zip: document.getElementById('billZip')?.value || '' 
+              } 
+            };
+            customers.push(newCust);
+            populateCustomerDropdown();
+            custModal.hide();
+            showToast(`Customer ${name} created`);
+            step = 1;
+            updateStepUI();
+            ['custName', 'custPhone', 'custEmail', 'billAddress', 'billCity', 'billState', 'billZip', 'shipAddress', 'shipCity', 'shipState', 'shipZip'].forEach(id => { 
+              const el = document.getElementById(id); 
+              if (el) el.value = ''; 
+            });
+          });
+        }
+        
+        const sameAsBilling = document.getElementById('sameAsBilling');
+        if (sameAsBilling) {
+          sameAsBilling.addEventListener('change', (e) => {
+            if (e.target.checked) {
+              const shipAdd = document.getElementById('shipAddress');
+              const shipCity = document.getElementById('shipCity');
+              const shipState = document.getElementById('shipState');
+              const shipZip = document.getElementById('shipZip');
+              if (shipAdd) shipAdd.value = document.getElementById('billAddress')?.value || '';
+              if (shipCity) shipCity.value = document.getElementById('billCity')?.value || '';
+              if (shipState) shipState.value = document.getElementById('billState')?.value || '';
+              if (shipZip) shipZip.value = document.getElementById('billZip')?.value || '';
+            }
+          });
+        }
+        updateStepUI();
       });
     })();
   </script>
+
 </body>
 </html>

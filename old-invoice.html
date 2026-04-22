@@ -1,0 +1,2263 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title> Fintle | Invoice Management Dashboard </title>
+  <!-- Bootstrap 5 + Icons + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/libs/css/styles.css" />
+  <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=ixafsZD0sjJfdpXFD8Wya2TalZQtS8IE3a3Hl6SDUgPl7G2WhcW3UEmHGrkx16ugN3p56sgq8cRW8JybWWRHfJf0aWUcVD2-eWz7BqTc6kw" charset="UTF-8"></script><style> 
+    /* Single Row Actions Bar */
+    .actions-bar {
+      background: white;
+      border-radius: 20px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #eef2f8;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .filters-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      flex: 2;
+    }
+
+    /* Professional Tabs Styling */
+    .invoice-tabs-container {
+      background: white;
+      border-radius: 16px;
+      padding: 8px 12px;
+      margin-bottom: 24px;
+      border: 1px solid #edf2f7;
+    }
+
+    .invoice-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 84px;
+    }
+
+    .invoice-tab {
+      padding: 12px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #64748b;
+      background: transparent;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .invoice-tab i {
+      font-size: 1rem;
+      opacity: 0.7;
+    }
+
+    .invoice-tab:hover {
+      color: #233578;
+      background: #f8fafc;
+    }
+
+    .invoice-tab.active {
+      color: #233578;
+      background: #eef2ff;
+    }
+
+    .invoice-tab .tab-count {
+      background: #e2e8f0;
+      color: #475569;
+      border-radius: 30px;
+      padding: 2px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 4px;
+    }
+
+    .invoice-tab.active .tab-count {
+      background: #233578;
+      color: white;
+    }
+
+    /* Enhanced KPI Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 20px 10px;
+      margin-bottom: 24px;
+    }
+
+    .kpi-card {
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid #edf2f7;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #233578 0%, #4f6bc7 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .kpi-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .kpi-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+    }
+
+    .kpi-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .kpi-icon.primary { background: #d1ceff; color: #2d2965; }
+    .kpi-icon.success { background: #c3eae8; color: #10b981; }
+    .kpi-icon.warning { background: #fef3c7; color: #d2b342; }
+    .kpi-icon.danger { background: #fee2e2; color: #f74343; }
+    .kpi-icon.info { background: #e0f2fe; color: #0284c7; }
+    .kpi-icon.purple { background: #f3e8ff; color: #9333ea; }
+
+    .kpi-main-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: #1e293b;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .kpi-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .kpi-stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+
+    .kpi-stat-label {
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kpi-stat-value {
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .kpi-stat-value.positive { color: #10b981; }
+    .kpi-stat-value.negative { color: #ef4444; }
+    .kpi-stat-value.warning { color: #d97706; }
+
+    .kpi-progress {
+      margin-top: 12px;
+    }
+
+    .progress {
+      height: 6px;
+      border-radius: 10px;
+      background: #e2e8f0;
+    }
+
+    .progress-bar {
+      border-radius: 10px;
+    }
+
+    .kpi-footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+
+    .trend-up { color: #10b981; }
+    .trend-down { color: #ef4444; }
+
+    /* Badges */
+    .badge-unpaid {
+      background: #fff3e3;
+      color: #c26b1a;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    .badge-paid {
+      background: #e6f7e6;
+      color: #10b981;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    .badge-pending {
+      background: #fffce6;
+      color: #b69500;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    .badge-draft {
+      background: #f1f5f9;
+      color: #64748b;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    .badge-sent {
+      background: #e0f2fe;
+      color: #0284c7;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    .badge-overdue {
+      background: #fee2e2;
+      color: #ef4444;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    .badge-unsent {
+      background: #fef3c7;
+      color: #d97706;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+
+    /* Table Styles */
+    .invoice-table-wrapper {
+      overflow-x: auto;
+    }
+
+    .invoice-table {
+      min-width: 1800px;
+      font-size: 0.85rem;
+    }
+
+    .invoice-table th {
+      background: #f8fafc;
+      font-weight: 600;
+      color: #1e293b;
+      padding: 12px 8px;
+      white-space: nowrap;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .invoice-table td {
+      padding: 12px 8px;
+      vertical-align: middle;
+      border-bottom: 1px solid #eef2f6;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .status-draft { background: #f1f5f9; color: #64748b; }
+    .status-unsent { background: #fef3c7; color: #d97706; }
+    .status-sent { background: #e0f2fe; color: #0284c7; }
+    .status-paid { background: #e6f7e6; color: #10b981; }
+    .status-overdue { background: #fee2e2; color: #ef4444; }
+    .status-unpaid { background: #fff3e3; color: #c26b1a; }
+
+    /* Action Dropdown */
+    .action-dropdown .dropdown-menu {
+      min-width: 180px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 8px 0;
+    }
+
+    .action-dropdown .dropdown-item {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .action-dropdown .dropdown-item:hover {
+      background: #f1f5f9;
+    }
+
+    .action-dropdown .dropdown-item.text-danger:hover {
+      background: #fee2e2;
+    }
+
+    /* Filter badge */
+    .filter-badge {
+      background: #f1f5f9;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: #475569;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* Pagination */
+    .pagination-info {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    .page-link {
+      border-radius: 8px;
+      margin: 0 2px;
+      border: none;
+      color: #475569;
+    }
+
+    .page-link:hover {
+      background: #eef2ff;
+      color: #233578;
+    }
+
+    .page-item.active .page-link {
+      background: #233578;
+      color: white;
+    }
+
+    @media (max-width: 1200px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .invoice-tab {
+        padding: 10px 14px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="main-wrapper">
+        <!-- Sidebar Start -->
+        <aside class="side-mini-panel with-vertical">
+            <!-- ---------------------------------- -->
+            <!-- Start Vertical Layout Sidebar -->
+            <!-- ---------------------------------- -->
+            <div class="iconbar">
+                <div class="sidebarmenu">
+                    <div class="brand-logo d-flex align-items-center nav-logo">
+                        <a href="../main/index.html" class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+                        </a>
+                    </div>
+                    <!-- ---------------------------------- -->
+                    <!-- Dashboard -->
+                    <!-- ---------------------------------- -->
+                    <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+                        <ul class="sidebar-menu" id="sidebarnav">
+
+                            <!-- ---------------------------------- -->
+                            <!-- Dashboard -->
+                            <!-- ---------------------------------- -->
+                            <li class="sidebar-item mt-4">
+                                <a class="sidebar-link" href="" id="get-url" aria-expanded="false">
+                                    <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="../main/index2.html" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Inbox</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:home-angle-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Items</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item"><a class="sidebar-link" href="items.html"><span
+                                                class="icon-small"></span>
+                                            Inventory</a></li>
+
+                                </ul>
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:home-angle-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Purchase</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="../main/frontend-landingpage.html">
+                                            <span class="icon-small"></span>
+                                            Suppliers
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="../main/frontend-aboutpage.html">
+                                            <span class="icon-small"></span>
+                                            Purchase Order
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span>
+                                            Purchase Bill
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span>
+                                            Supplier Statement
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:home-angle-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Sales</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                       <a class="sidebar-link" href="customer.html">
+                                            <span class="icon-small"></span>
+                                            Customer
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="../main/frontend-aboutpage.html">
+                                            <span class="icon-small"></span>
+                                            Enquiry
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span>
+                                            Estimates
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="invoice.html">
+                                            <span class="icon-small"></span>
+                                            Invoice
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span>
+                                            Customer Statement
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+
+                            <li>
+                                <span class="sidebar-divider"></span>
+                            </li>
+                    </nav>
+
+                </div>
+            </div>
+        </aside>
+        <!--  Sidebar End -->
+
+    <div class="page-wrapper">
+            <!--  Header Start -->
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none">
+                                <a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                                    href="javascript:void(0)">
+                                    <iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon>
+                                </a>
+                            </li>
+                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle">
+                                <a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    <iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon>
+                                </a>
+                            </li>
+
+                            <!-- Create Sales Invoice Button with Hover Mega Menu -->
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd">
+                                    <button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
+                                        <iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>
+                                        Create Sales Invoice
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-nav dropdown-menu-animate-up py-0 overflow-hidden"
+                                        aria-labelledby="drop2">
+                                        <div class="position-relative">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <div class="p-4 pb-3">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="position-relative">
+                                                                    <a href="../main/app-chat.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:chat-line-bold-duotone"
+                                                                                class="fs-7 text-primary"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0"> Create Party</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">Set
+                                                                                up profiles for new customers or
+                                                                                vendors.</span>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="../main/app-invoice.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:bill-list-bold-duotone"
+                                                                                class="fs-7 text-secondary"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Create Item</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">Register
+                                                                                new products or services into
+                                                                                your inventory.</span>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="../main/app-contact2.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:phone-calling-rounded-bold-duotone"
+                                                                                class="fs-7 text-warning"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Quotation</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">Issue
+                                                                                price estimates to potential
+                                                                                clients.</span>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="../main/app-email.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-danger-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:letter-bold-duotone"
+                                                                                class="fs-7 text-danger"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Payment In</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">Record
+                                                                                money received from customers.
+                                                                            </span>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="position-relative">
+                                                                    <a href="../main/page-user-profile.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-success-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon icon="solar:user-bold-duotone"
+                                                                                class="fs-7 text-success"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Sales Return</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">learn
+                                                                                more information</span>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="../main/app-calendar.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:calendar-minimalistic-bold-duotone"
+                                                                                class="fs-7 text-primary"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Delivery Challan</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">Document
+                                                                                the dispatch of goods for
+                                                                                delivery. </span>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="../main/app-contact.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:smartphone-2-bold-duotone"
+                                                                                class="fs-7 text-secondary"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Purchase</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">Send
+                                                                                official requests to suppliers
+                                                                                for goods</span>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="../main/app-notes.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:notes-bold-duotone"
+                                                                                class="fs-7 text-warning"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Purchase Return</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">To-do
+                                                                                and Daily tasks</span>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <div class="d-block d-lg-none py-9 py-xl-0">
+                            <img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
+                        </div>
+                        <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle"
+                            href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon>
+                        </a>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <ul
+                                    class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                                    <li class="nav-item dropdown">
+                                        <a href="javascript:void(0)"
+                                            class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                                            type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"
+                                            aria-controls="offcanvasWithBothOptions">
+                                            <iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item d-block d-xl-none">
+                                        <a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <iconify-icon icon="solar:magnifer-line-duotone"
+                                                class="fs-6"></iconify-icon>
+                                        </a>
+                                    </li>
+
+                                    <!-- ------------------------------- -->
+                                    <!-- start notification Dropdown -->
+                                    <!-- ------------------------------- -->
+
+                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle">
+                                        <a class="nav-link position-relative" href="javascript:void(0)" id="drop2"
+                                            aria-expanded="false">
+                                            <iconify-icon icon="solar:bell-bing-line-duotone"
+                                                class="fs-6"></iconify-icon>
+                                        </a>
+                                        <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up"
+                                            aria-labelledby="drop2">
+                                            <div class="d-flex align-items-center justify-content-between py-3 px-7">
+                                                <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
+                                                <span class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5
+                                                    new</span>
+                                            </div>
+                                            <div class="message-body" data-simplebar>
+                                                <a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span
+                                                        class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger">
+                                                        <iconify-icon icon="solar:widget-3-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Launch Admin</h6>
+                                                            <span class="d-block fs-2">9:30 AM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">Just see
+                                                            the my new admin!</span>
+                                                    </div>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span
+                                                        class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary">
+                                                        <iconify-icon icon="solar:calendar-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Event today</h6>
+                                                            <span class="d-block fs-2">9:15 AM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">Just a
+                                                            reminder that you have
+                                                            event</span>
+                                                    </div>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span
+                                                        class="flex-shrink-0 bg-secondary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-secondary">
+                                                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Settings</h6>
+                                                            <span class="d-block fs-2">4:36 PM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">You can
+                                                            customize this template as
+                                                            you want</span>
+                                                    </div>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span
+                                                        class="flex-shrink-0 bg-warning-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-warning">
+                                                        <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Launch Admin</h6>
+                                                            <span class="d-block fs-2">9:30 AM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">Just see
+                                                            the my new admin!</span>
+                                                    </div>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span
+                                                        class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary">
+                                                        <iconify-icon icon="solar:calendar-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Event today</h6>
+                                                            <span class="d-block fs-2">9:15 AM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">Just a
+                                                            reminder that you have
+                                                            event</span>
+                                                    </div>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span
+                                                        class="flex-shrink-0 bg-secondary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-secondary">
+                                                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Settings</h6>
+                                                            <span class="d-block fs-2">4:36 PM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">You can
+                                                            customize this template as
+                                                            you want</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="py-6 px-7 mb-1">
+                                                <button class="btn btn-primary w-100">See All Notifications</button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- ------------------------------- -->
+                                    <!-- end notification Dropdown -->
+                                    <!-- ------------------------------- -->
+
+                                    <!-- ------------------------------- -->
+                                    <!-- start profile Dropdown -->
+                                    <!-- ------------------------------- -->
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false">
+                                            <div class="d-flex align-items-center gap-2 lh-base">
+                                                <img src="assets/images/needs/profile.png" class="rounded-circle"
+                                                    width="35" height="35" alt="Fintle-img" />
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up"
+                                            aria-labelledby="drop1">
+                                            <div class="position-relative px-4 pt-3 pb-2">
+                                                <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6">
+                                                    <img src="assets/images/needs/profile.png" class="rounded-circle"
+                                                        width="56" height="56" alt="Fintle-img" />
+                                                    <div>
+                                                        <h5 class="mb-0 fs-12">David McMichael <span
+                                                                class="text-success fs-11">Pro</span>
+                                                        </h5>
+                                                        <p class="mb-0 text-dark">
+                                                            <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                                                data-cfemail="583c392e313c182f2a39282831203d34763b3735">[email&#160;protected]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="message-body">
+                                                    <a href="../main/page-user-profile.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">
+                                                        My Profile
+                                                    </a>
+                                                    <a href="../main/page-pricing.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">
+                                                        My Subscription
+                                                    </a>
+                                                    <a href="../main/app-invoice.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">
+                                                        My Invoice <span
+                                                            class="badge bg-danger-subtle text-danger rounded ms-8">4</span>
+                                                    </a>
+                                                    <a href="../main/page-account-settings.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">
+                                                        Account Settings
+                                                    </a>
+                                                    <a href="../main/authentication-login2.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">
+                                                        Sign Out
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- ------------------------------- -->
+                                    <!-- end profile Dropdown -->
+                                    <!-- ------------------------------- -->
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <!-- ------------------------------- -->
+                    <!-- apps Dropdown in Small screen -->
+                    <!-- ------------------------------- -->
+                    <!--  Mobilenavbar -->
+                    <div class="offcanvas offcanvas-start pt-0" data-bs-scroll="true" tabindex="-1" id="mobilenavbar"
+                        aria-labelledby="offcanvasWithBothOptionsLabel">
+                        <nav class="sidebar-nav scroll-sidebar">
+                            <div class="offcanvas-header justify-content-between">
+                                <a href="../main/index.html" class="text-nowrap logo-img">
+                                    <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+                                </a>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body pt-0" data-simplebar style="height: calc(100vh - 80px)">
+                                <ul id="sidebarnav">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link has-arrow ms-0" href="javascript:void(0)"
+                                            aria-expanded="false">
+                                            <span>
+                                                <iconify-icon icon="solar:slider-vertical-line-duotone"
+                                                    class="fs-7"></iconify-icon>
+                                            </span>
+                                            <span class="hide-menu">Apps</span>
+                                        </a>
+                                        <ul aria-expanded="false" class="collapse first-level my-3 ps-3">
+                                            <li class="sidebar-item py-2">
+                                                <a href="../main/app-chat.html" class="d-flex align-items-center">
+                                                    <div
+                                                        class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                        <iconify-icon icon="solar:chat-line-bold-duotone"
+                                                            class="fs-7 text-primary"></iconify-icon>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0 bg-hover-primary">Chat Application</h6>
+                                                        <span class="fs-11 d-block text-body-color">New messages
+                                                            arrived</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-item py-2">
+                                                <a href="../main/app-invoice.html" class="d-flex align-items-center">
+                                                    <div
+                                                        class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                        <iconify-icon icon="solar:bill-list-bold-duotone"
+                                                            class="fs-7 text-secondary"></iconify-icon>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0 bg-hover-primary">Invoice App</h6>
+                                                        <span class="fs-11 d-block text-body-color">Get latest
+                                                            invoice</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-item py-2">
+                                                <a href="../main/app-contact2.html" class="d-flex align-items-center">
+                                                    <div
+                                                        class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                        <iconify-icon icon="solar:phone-calling-rounded-bold-duotone"
+                                                            class="fs-7 text-warning"></iconify-icon>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0 bg-hover-primary">Contact Application</h6>
+                                                        <span class="fs-11 d-block text-body-color">2 Unsaved
+                                                            Contacts</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-item py-2">
+                                                <a href="../main/app-email.html" class="d-flex align-items-center">
+                                                    <div
+                                                        class="bg-danger-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                        <iconify-icon icon="solar:letter-bold-duotone"
+                                                            class="fs-7 text-danger"></iconify-icon>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0 bg-hover-primary">Email App</h6>
+                                                        <span class="fs-11 d-block text-body-color">Get new
+                                                            emails</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-item py-2">
+                                                <a href="../main/page-user-profile.html"
+                                                    class="d-flex align-items-center">
+                                                    <div
+                                                        class="bg-success-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                        <iconify-icon icon="solar:user-bold-duotone"
+                                                            class="fs-7 text-success"></iconify-icon>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0 bg-hover-primary">User Profile</h6>
+                                                        <span class="fs-11 d-block text-body-color">learn more
+                                                            information</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-item py-2">
+                                                <a href="../main/app-calendar.html" class="d-flex align-items-center">
+                                                    <div
+                                                        class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                        <iconify-icon icon="solar:calendar-minimalistic-bold-duotone"
+                                                            class="fs-7 text-primary"></iconify-icon>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0 bg-hover-primary">Calendar App</h6>
+                                                        <span class="fs-11 d-block text-body-color">Get dates</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-item py-2">
+                                                <a href="../main/app-contact.html" class="d-flex align-items-center">
+                                                    <div
+                                                        class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                        <iconify-icon icon="solar:smartphone-2-bold-duotone"
+                                                            class="fs-7 text-secondary"></iconify-icon>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0 bg-hover-primary">Contact List Table</h6>
+                                                        <span class="fs-11 d-block text-body-color">Add new
+                                                            contact</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-item py-2">
+                                                <a href="../main/app-notes.html" class="d-flex align-items-center">
+                                                    <div
+                                                        class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                        <iconify-icon icon="solar:notes-bold-duotone"
+                                                            class="fs-7 text-warning"></iconify-icon>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0 bg-hover-primary">Notes Application</h6>
+                                                        <span class="fs-11 d-block text-body-color">To-do and Daily
+                                                            tasks</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                </div>
+                <div class="app-header with-horizontal">
+                    <nav class="navbar navbar-expand-xl container-fluid p-0">
+                        <ul class="navbar-nav align-items-center">
+                            <li class="nav-item d-flex d-xl-none">
+                                <a class="nav-link sidebartoggler nav-icon-hover-bg rounded-circle" id="sidebarCollapse"
+                                    href="javascript:void(0)">
+                                    <iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-7"></iconify-icon>
+                                </a>
+                            </li>
+                            <li class="nav-item d-none d-xl-flex align-items-center">
+                                <a href="../main/index.html" class="text-nowrap nav-link">
+                                    <img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
+                                </a>
+                            </li>
+                            <li class="nav-item d-none d-xl-flex align-items-center nav-icon-hover-bg rounded-circle">
+                                <a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    <iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon>
+                                </a>
+                            </li>
+                            <li
+                                class="nav-item d-none d-lg-flex align-items-center dropdown nav-icon-hover-bg rounded-circle">
+                                <div class="hover-dd">
+                                    <a class="nav-link" id="drop2" href="javascript:void(0)" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <iconify-icon icon="solar:widget-3-line-duotone" class="fs-6"></iconify-icon>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-nav dropdown-menu-animate-up py-0 overflow-hidden"
+                                        aria-labelledby="drop2">
+                                        <div class="position-relative">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="p-4 pb-3">
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="position-relative">
+                                                                    <a href="../main/app-chat.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:chat-line-bold-duotone"
+                                                                                class="fs-7 text-primary"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Chat Application</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">New
+                                                                                messages arrived</span>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="../main/app-invoice.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:bill-list-bold-duotone"
+                                                                                class="fs-7 text-secondary"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Invoice App</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">Get
+                                                                                latest invoice</span>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="../main/app-contact2.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:phone-calling-rounded-bold-duotone"
+                                                                                class="fs-7 text-warning"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Contact Application</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">2
+                                                                                Unsaved Contacts</span>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="../main/app-email.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-danger-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:letter-bold-duotone"
+                                                                                class="fs-7 text-danger"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Email App</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">Get
+                                                                                new emails</span>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="position-relative">
+                                                                    <a href="../main/page-user-profile.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-success-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon icon="solar:user-bold-duotone"
+                                                                                class="fs-7 text-success"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">User Profile</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">learn
+                                                                                more information</span>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="../main/app-calendar.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:calendar-minimalistic-bold-duotone"
+                                                                                class="fs-7 text-primary"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Calendar App</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">Get
+                                                                                dates</span>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="../main/app-contact.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:smartphone-2-bold-duotone"
+                                                                                class="fs-7 text-secondary"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Contact List Table</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">Add
+                                                                                new contact</span>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a href="../main/app-notes.html"
+                                                                        class="d-flex align-items-center pb-9 position-relative">
+                                                                        <div
+                                                                            class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                                            <iconify-icon
+                                                                                icon="solar:notes-bold-duotone"
+                                                                                class="fs-7 text-warning"></iconify-icon>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0">Notes Application</h6>
+                                                                            <span
+                                                                                class="fs-11 d-block text-body-color">To-do
+                                                                                and Daily tasks</span>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 d-none d-lg-flex">
+                                                    <img src="../assets/images/backgrounds/mega-dd-bg.jpg" alt="mega-dd"
+                                                        class="img-fluid mega-dd-bg" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="d-block d-xl-none">
+                            <a href="../main/index.html" class="text-nowrap nav-link">
+                                <img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
+                            </a>
+                        </div>
+                        <a class="navbar-toggler nav-icon-hover p-0 border-0 nav-icon-hover-bg rounded-circle"
+                            href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="p-2">
+                                <i class="ti ti-dots fs-7"></i>
+                            </span>
+                        </a>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <div class="d-flex align-items-center justify-content-between px-0 px-xl-8">
+                                <ul
+                                    class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                                    <li class="nav-item dropdown">
+                                        <a href="javascript:void(0)"
+                                            class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                                            type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"
+                                            aria-controls="offcanvasWithBothOptions">
+                                            <iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-icon-hover-bg rounded-circle moon dark-layout"
+                                            href="javascript:void(0)">
+                                            <iconify-icon icon="solar:moon-line-duotone"
+                                                class="moon fs-6"></iconify-icon>
+                                        </a>
+                                        <a class="nav-link nav-icon-hover-bg rounded-circle sun light-layout"
+                                            href="javascript:void(0)" style="display: none">
+                                            <iconify-icon icon="solar:sun-2-line-duotone"
+                                                class="sun fs-6"></iconify-icon>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item d-block d-xl-none">
+                                        <a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <iconify-icon icon="solar:magnifer-line-duotone"
+                                                class="fs-6"></iconify-icon>
+                                        </a>
+                                    </li>
+
+                                    <!-- ------------------------------- -->
+                                    <!-- start notification Dropdown -->
+                                    <!-- ------------------------------- -->
+                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle">
+                                        <a class="nav-link position-relative" href="javascript:void(0)" id="drop2"
+                                            aria-expanded="false">
+                                            <iconify-icon icon="solar:bell-bing-line-duotone"
+                                                class="fs-6"></iconify-icon>
+                                        </a>
+                                        <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up"
+                                            aria-labelledby="drop2">
+                                            <div class="d-flex align-items-center justify-content-between py-3 px-7">
+                                                <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
+                                                <span class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5
+                                                    new</span>
+                                            </div>
+                                            <div class="message-body" data-simplebar>
+                                                <a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span
+                                                        class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger">
+                                                        <iconify-icon icon="solar:widget-3-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Launch Admin</h6>
+                                                            <span class="d-block fs-2">9:30 AM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">Just see
+                                                            the my new admin!</span>
+                                                    </div>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span
+                                                        class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary">
+                                                        <iconify-icon icon="solar:calendar-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Event today</h6>
+                                                            <span class="d-block fs-2">9:15 AM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">Just a
+                                                            reminder that you have
+                                                            event</span>
+                                                    </div>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span
+                                                        class="flex-shrink-0 bg-secondary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-secondary">
+                                                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Settings</h6>
+                                                            <span class="d-block fs-2">4:36 PM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">You can
+                                                            customize this template as
+                                                            you want</span>
+                                                    </div>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span
+                                                        class="flex-shrink-0 bg-warning-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-warning">
+                                                        <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Launch Admin</h6>
+                                                            <span class="d-block fs-2">9:30 AM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">Just see
+                                                            the my new admin!</span>
+                                                    </div>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span
+                                                        class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary">
+                                                        <iconify-icon icon="solar:calendar-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Event today</h6>
+                                                            <span class="d-block fs-2">9:15 AM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">Just a
+                                                            reminder that you have
+                                                            event</span>
+                                                    </div>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span
+                                                        class="flex-shrink-0 bg-secondary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-secondary">
+                                                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Settings</h6>
+                                                            <span class="d-block fs-2">4:36 PM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">You can
+                                                            customize this template as
+                                                            you want</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="py-6 px-7 mb-1">
+                                                <button class="btn btn-primary w-100">See All Notifications</button>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <!-- ------------------------------- -->
+                                    <!-- end notification Dropdown -->
+                                    <!-- ------------------------------- -->
+
+                                    <!-- ------------------------------- -->
+                                    <!-- start language Dropdown -->
+                                    <!-- ------------------------------- -->
+                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle">
+                                        <a class="nav-link" href="javascript:void(0)" id="drop2"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="../assets/images/flag/icon-flag-en.svg" alt="Fintle-img"
+                                                width="20px" height="20px"
+                                                class="rounded-circle object-fit-cover round-20" />
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
+                                            aria-labelledby="drop2">
+                                            <div class="message-body">
+                                                <a href="javascript:void(0)"
+                                                    class="d-flex align-items-center gap-2 py-3 px-4 dropdown-item">
+                                                    <div class="position-relative">
+                                                        <img src="../assets/images/flag/icon-flag-en.svg"
+                                                            alt="Fintle-img" width="20px" height="20px"
+                                                            class="rounded-circle object-fit-cover round-20" />
+                                                    </div>
+                                                    <p class="mb-0 fs-3">English (UK)</p>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="d-flex align-items-center gap-2 py-3 px-4 dropdown-item">
+                                                    <div class="position-relative">
+                                                        <img src="../assets/images/flag/icon-flag-cn.svg"
+                                                            alt="Fintle-img" width="20px" height="20px"
+                                                            class="rounded-circle object-fit-cover round-20" />
+                                                    </div>
+                                                    <p class="mb-0 fs-3">中国人 (Chinese)</p>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="d-flex align-items-center gap-2 py-3 px-4 dropdown-item">
+                                                    <div class="position-relative">
+                                                        <img src="../assets/images/flag/icon-flag-fr.svg"
+                                                            alt="Fintle-img" width="20px" height="20px"
+                                                            class="rounded-circle object-fit-cover round-20" />
+                                                    </div>
+                                                    <p class="mb-0 fs-3">français (French)</p>
+                                                </a>
+                                                <a href="javascript:void(0)"
+                                                    class="d-flex align-items-center gap-2 py-3 px-4 dropdown-item">
+                                                    <div class="position-relative">
+                                                        <img src="../assets/images/flag/icon-flag-sa.svg"
+                                                            alt="Fintle-img" width="20px" height="20px"
+                                                            class="rounded-circle object-fit-cover round-20" />
+                                                    </div>
+                                                    <p class="mb-0 fs-3">عربي (Arabic)</p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- ------------------------------- -->
+                                    <!-- end language Dropdown -->
+                                    <!-- ------------------------------- -->
+
+                                    <!-- ------------------------------- -->
+                                    <!-- start profile Dropdown -->
+                                    <!-- ------------------------------- -->
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false">
+                                            <div class="d-flex align-items-center gap-2 lh-base">
+                                                <img src="../assets/images/profile/user-1.jpg" class="rounded-circle"
+                                                    width="35" height="35" alt="Fintle-img" />
+                                                <iconify-icon icon="solar:alt-arrow-down-bold"
+                                                    class="fs-2"></iconify-icon>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up"
+                                            aria-labelledby="drop1">
+                                            <div class="position-relative px-4 pt-3 pb-2">
+                                                <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6">
+                                                    <img src="../assets/images/profile/user-1.jpg"
+                                                        class="rounded-circle" width="56" height="56"
+                                                        alt="Fintle-img" />
+                                                    <div>
+                                                        <h5 class="mb-0 fs-12">David McMichael <span
+                                                                class="text-success fs-11">Pro</span>
+                                                        </h5>
+                                                        <p class="mb-0 text-dark">
+                                                            <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                                                data-cfemail="442025322d200433362534342d3c21286a272b29">[email&#160;protected]</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="message-body">
+                                                    <a href="../main/page-user-profile.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">
+                                                        My Profile
+                                                    </a>
+                                                    <a href="../main/page-pricing.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">
+                                                        My Subscription
+                                                    </a>
+                                                    <a href="../main/app-invoice.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">
+                                                        My Invoice <span
+                                                            class="badge bg-danger-subtle text-danger rounded ms-8">4</span>
+                                                    </a>
+                                                    <a href="../main/page-account-settings.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">
+                                                        Account Settings
+                                                    </a>
+                                                    <a href="../main/authentication-login2.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">
+                                                        Sign Out
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- ------------------------------- -->
+                                    <!-- end profile Dropdown -->
+                                    <!-- ------------------------------- -->
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+
+                </div>
+            </header>
+            <!--  Header End -->
+
+      <div class="body-wrapper">
+        <div class="container-fluid p-4">
+          <div class="card card-body py-3">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <div class="d-sm-flex align-items-center justify-space-between">
+                  <h4 class="mb-4 mb-sm-0 card-title">Invoice Management</h4>
+                  <nav aria-label="breadcrumb" class="ms-auto">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item d-flex align-items-center">
+                        <a class="text-muted text-decoration-none d-flex" href="index.html">
+                          <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                        </a>
+                      </li>
+                      <li class="breadcrumb-item active">Invoices</li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Enhanced KPI Cards -->
+          <div class="kpi-grid card">
+            <!-- Total Receivables Card -->
+            <div class="kpi-card primary-gradient">
+              <div class="kpi-header">
+                <span class="kpi-title">Total Receivables</span>
+                <div class="kpi-icon primary">
+                  <i class="fas fa-file-invoice"></i>
+                </div>
+              </div>
+              <div class="kpi-main-value" id="totalReceivables">₹ 0</div>
+              <div class="kpi-stats">
+                <div class="kpi-stat-row">
+                  <span class="kpi-stat-label">Paid</span>
+                  <span class="kpi-stat-value positive" id="totalPaidAmount">₹ 0</span>
+                </div>
+                <div class="kpi-stat-row">
+                  <span class="kpi-stat-label"> Outstanding</span>
+                  <span class="kpi-stat-value warning" id="totalOutstanding">₹ 0</span>
+                </div>
+                <div class="kpi-stat-row">
+                  <span class="kpi-stat-label"> Overdue</span>
+                  <span class="kpi-stat-value negative" id="totalOverdueAmount">₹ 0</span>
+                </div>
+              </div>
+              <div class="kpi-progress" id="collectionProgress" >
+              </div>
+              <div class="kpi-footer">
+                <span><i class="fas fa-percent"></i> Collection Rate</span>
+                <span class="fw-bold" id="collectionRate">0%</span>
+              </div>
+            </div>
+
+            <!-- Invoice Status Card -->
+            <div class="kpi-card secondary-gradient">
+              <div class="kpi-header">
+                <span class="kpi-title">Invoice Status</span>
+                <div class="kpi-icon success">
+                  <i class="fas fa-chart-pie"></i>
+                </div>
+              </div>
+              <div class="kpi-main-value" id="totalInvoices">0</div>
+              <div class="kpi-stats">
+                <div class="kpi-stat-row">
+                  <span class="kpi-stat-label">Draft</span>
+                  <span class="kpi-stat-value" id="draftCount">0</span>
+                </div>
+                <div class="kpi-stat-row">
+                  <span class="kpi-stat-label"> Sent</span>
+                  <span class="kpi-stat-value" id="sentCount">0</span>
+                </div>
+                <div class="kpi-stat-row">
+                  <span class="kpi-stat-label"> Paid</span>
+                  <span class="kpi-stat-value positive" id="paidCount">0</span>
+                </div>
+              </div>
+              <div class="kpi-footer">
+                <span><i class="fas fa-calendar-alt"></i> This Month</span>
+                <span class="fw-bold" id="monthlyInvoices">0 invoices</span>
+              </div>
+            </div>
+
+            <!-- Average Payment Card -->
+            <div class="kpi-card warning-gradient">
+              <div class="kpi-header">
+                <span class="kpi-title">Average Payment</span>
+                <div class="kpi-icon warning">
+                  <i class="fas fa-calculator"></i>
+                </div>
+              </div>
+              <div class="kpi-main-value" id="avgInvoiceValue">₹ 0</div>
+              <div class="kpi-stats">
+                <div class="kpi-stat-row">
+                  <span class="kpi-stat-label"> Highest</span>
+                  <span class="kpi-stat-value" id="highestInvoice">₹ 0</span>
+                </div>
+                <div class="kpi-stat-row">
+                  <span class="kpi-stat-label"> Lowest</span>
+                  <span class="kpi-stat-value" id="lowestInvoice">₹ 0</span>
+                </div>
+                <div class="kpi-stat-row">
+                  <span class="kpi-stat-label"> Customers</span>
+                  <span class="kpi-stat-value" id="uniqueCustomers">0</span>
+                </div>
+              </div>
+              <div class="kpi-footer">
+                <span>vs Last Month</span>
+                <span class="fw-bold trend-up" id="monthlyTrend">+0%</span>
+              </div>
+            </div>
+
+            <!-- Due Summary Card -->
+            <div class="kpi-card danger-gradient">
+              <div class="kpi-header">
+                <span class="kpi-title">Due Summary</span>
+                <div class="kpi-icon danger">
+                  <i class="fas fa-calendar"></i>
+                </div>
+              </div>
+              <div class="kpi-main-value" id="dueNext30Days">₹ 0</div>
+              <div class="kpi-stats">
+                <div class="kpi-stat-row">
+                  <span class="kpi-stat-label">Due this week</span>
+                  <span class="kpi-stat-value warning" id="dueThisWeek">₹ 0</span>
+                </div>
+                <div class="kpi-stat-row">
+                  <span class="kpi-stat-label"> Due next week</span>
+                  <span class="kpi-stat-value" id="dueNextWeek">₹ 0</span>
+                </div>
+                <div class="kpi-stat-row">
+                  <span class="kpi-stat-label"> Due 30+ days</span>
+                  <span class="kpi-stat-value" id="dueLater">₹ 0</span>
+                </div>
+              </div>
+              <div class="kpi-footer">
+                <span> Overdue invoices</span>
+                <span class="fw-bold text-danger" id="overdueCount">0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Professional Tabs -->
+          <div class="invoice-tabs-container">
+            <div class="invoice-tabs">
+              <button class="invoice-tab active" data-tab="all">
+                 All Invoices
+                <span class="tab-count" id="countAll">0</span>
+              </button>
+              <button class="invoice-tab" data-tab="draft">
+                 Draft
+                <span class="tab-count" id="countDraft">0</span>
+              </button>
+              <button class="invoice-tab" data-tab="unsent">
+                 Unsent
+                <span class="tab-count" id="countUnsent">0</span>
+              </button>
+              <button class="invoice-tab" data-tab="sent">
+                Sent
+                <span class="tab-count" id="countSent">0</span>
+              </button>
+              <button class="invoice-tab" data-tab="overdue">
+                 Overdue
+                <span class="tab-count" id="countOverdue">0</span>
+              </button>
+              <button class="invoice-tab" data-tab="paid">
+                 Paid
+                <span class="tab-count" id="countPaid">0</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Actions Bar -->
+          <div class="actions-bar">
+            <div class="filters-group">
+              <input type="text" class="form-control form-control-sm w-auto" id="globalSearch" placeholder="Search invoices..." style="min-width: 220px;">
+              <span class="filter-badge"><i class="far fa-calendar-alt me-2"></i> Last 365 Days</span>
+            </div>
+            <div class="d-flex gap-2">
+              <div class="btn-group">
+                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                  Bulk Actions
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="javascript:void(0)" onclick="bulkExport()"><i class="fas fa-download me-2"></i>Export Selected</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)" onclick="bulkMarkAsPaid()"><i class="fas fa-check-circle me-2"></i>Mark as Paid</a></li>
+                  <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="bulkDelete()"><i class="fas fa-trash-alt me-2"></i>Delete Selected</a></li>
+                </ul>
+              </div>
+              <button class="btn btn-primary rounded-pill px-5 py-2 shadow-sm" onclick="location.href='create-invoice.html'">
+                <i class="fas fa-plus me-2"></i> New Invoice
+              </button>
+            </div>
+          </div>
+
+          <!-- Invoice Table -->
+          <div class="card card-custom overflow-hidden">
+            <div class="invoice-table-wrapper">
+              <table class="invoice-table align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th style="width: 40px;"><input class="form-check-input" type="checkbox" id="selectAllCheckbox"></th>
+                    <th>S.No</th>
+                    <th>Status</th>
+                    <th>Due</th>
+                    <th>Invoice ID</th>
+                    <th>Estimate ID</th>
+                    <th>Customer</th>
+                    <th>Reference</th>
+                    <th>Issue Date</th>
+                    <th>Due Date</th>
+                    <th>Amount</th>
+                    <th>Paid</th>
+                    <th>Balance</th>
+                    <th>Created On</th>
+                    <th>Last Updated</th>
+                    <th>Enq ID</th>
+                    <th>Created By</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="invoiceTableBody">
+                  <!-- JS injects rows -->
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center py-3 px-4">
+              <span class="pagination-info">Showing <span id="rowStart">1</span>-<span id="rowEnd">10</span> of <span id="totalRows">0</span> invoices</span>
+              <nav>
+                <ul class="pagination pagination-sm mb-0" id="pagination">
+                  <!-- Pagination injected -->
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invoice Preview Modal -->
+  <div class="modal fade" id="invoicePreviewModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4">
+        <div class="modal-header bg-white border-0 pt-4 px-4">
+          <h5 class="modal-title fw-bold"> Invoice Preview</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body px-4 pb-4" id="previewModalBody">
+          <!-- Dynamic content -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="liveToastMsg" class="toast-notify position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display: none; z-index: 9999;">
+    <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/libs/js/simplebar.min.js"></script>
+  <script src="assets/libs/js/app.init.js"></script>
+  <script src="assets/libs/js/theme.js"></script>
+  <script src="assets/libs/js/app.min.js"></script>
+  <script src="assets/libs/js/sidebarmenu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+  <script>
+    // Enhanced dataset
+    let invoices = [
+      { id: 1, sno: 1, status: 'Paid', due: '-', invoiceId: 'INV-2404-001', estimateId: 'EST-001', customer: 'ABC Enterprises', reference: 'PO-123', issueDate: '2026-04-01', dueDate: '2026-05-01', amount: 5404, paid: 5404, balance: 0, createdOn: '2026-03-28', lastUpdated: '2026-04-15', enqId: 'ENQ-001', createdBy: 'John Doe', items: [] },
+      { id: 2, sno: 2, status: 'Unsent', due: '15 days', invoiceId: 'INV-2404-002', estimateId: 'EST-002', customer: 'XYZ Solutions', reference: 'REF-456', issueDate: '2026-04-10', dueDate: '2026-05-10', amount: 3200, paid: 0, balance: 3200, createdOn: '2026-04-05', lastUpdated: '2026-04-10', enqId: 'ENQ-002', createdBy: 'Jane Smith', items: [] },
+      { id: 3, sno: 3, status: 'Sent', due: '22 days', invoiceId: 'INV-2404-003', estimateId: 'EST-003', customer: 'Global Traders', reference: 'PO-789', issueDate: '2026-03-25', dueDate: '2026-04-25', amount: 1250, paid: 500, balance: 750, createdOn: '2026-03-20', lastUpdated: '2026-03-25', enqId: 'ENQ-003', createdBy: 'Mike Johnson', items: [] },
+      { id: 4, sno: 4, status: 'Overdue', due: 'Overdue by 5 days', invoiceId: 'INV-2403-045', estimateId: 'EST-004', customer: 'Sunrise Industries', reference: 'INV-REF-01', issueDate: '2026-03-01', dueDate: '2026-04-01', amount: 890, paid: 0, balance: 890, createdOn: '2026-02-28', lastUpdated: '2026-03-01', enqId: 'ENQ-004', createdBy: 'Sarah Wilson', items: [] },
+      { id: 5, sno: 5, status: 'Draft', due: '-', invoiceId: 'INV-2404-005', estimateId: 'EST-005', customer: 'Metro Corp', reference: 'DRAFT-001', issueDate: '2026-04-15', dueDate: '2026-05-15', amount: 2100, paid: 0, balance: 2100, createdOn: '2026-04-14', lastUpdated: '2026-04-15', enqId: 'ENQ-005', createdBy: 'David Brown', items: [] },
+      { id: 6, sno: 6, status: 'Paid', due: '-', invoiceId: 'INV-2404-006', estimateId: 'EST-006', customer: 'Aster Innovations', reference: 'PO-999', issueDate: '2026-03-15', dueDate: '2026-04-15', amount: 4750, paid: 4750, balance: 0, createdOn: '2026-03-10', lastUpdated: '2026-03-20', enqId: 'ENQ-006', createdBy: 'Emily Davis', items: [] },
+      { id: 7, sno: 7, status: 'Draft', due: '-', invoiceId: 'INV-2404-007', estimateId: 'EST-007', customer: 'Tech Solutions Ltd', reference: 'DRAFT-002', issueDate: '2026-04-18', dueDate: '2026-05-18', amount: 3500, paid: 0, balance: 3500, createdOn: '2026-04-17', lastUpdated: '2026-04-18', enqId: 'ENQ-007', createdBy: 'Robert Lee', items: [] },
+      { id: 8, sno: 8, status: 'Unpaid', due: '10 days', invoiceId: 'INV-2404-008', estimateId: 'EST-008', customer: 'Digital Wave', reference: 'REF-888', issueDate: '2026-04-05', dueDate: '2026-05-05', amount: 6800, paid: 2000, balance: 4800, createdOn: '2026-04-01', lastUpdated: '2026-04-05', enqId: 'ENQ-008', createdBy: 'Lisa Green', items: [] }
+    ];
+
+    let currentTab = 'all';
+    let currentPage = 1;
+    const rowsPerPage = 10;
+
+    function formatCurrency(amount) {
+      return `₹ ${amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    function formatShortCurrency(amount) {
+      if (amount >= 100000) {
+        return `₹ ${(amount / 100000).toFixed(1)}L`;
+      } else if (amount >= 1000) {
+        return `₹ ${(amount / 1000).toFixed(1)}K`;
+      }
+      return `₹ ${amount.toFixed(0)}`;
+    }
+
+    function showToast(msg) {
+      const toastDiv = document.getElementById('liveToastMsg');
+      const toastText = document.getElementById('toastText');
+      toastText.innerHTML = msg;
+      toastDiv.style.display = 'block';
+      setTimeout(() => { toastDiv.style.display = 'none'; }, 2500);
+    }
+
+    function getStatusClass(status) {
+      const classes = {
+        'Paid': 'status-paid',
+        'Unpaid': 'status-unpaid',
+        'Draft': 'status-draft',
+        'Sent': 'status-sent',
+        'Unsent': 'status-unsent',
+        'Overdue': 'status-overdue'
+      };
+      return classes[status] || 'status-draft';
+    }
+
+    function filterInvoices() {
+      const searchTerm = document.getElementById('globalSearch')?.value.toLowerCase() || '';
+      let filtered = invoices.filter(inv => {
+        const matchesSearch = inv.customer.toLowerCase().includes(searchTerm) || 
+                              inv.invoiceId.toLowerCase().includes(searchTerm) ||
+                              inv.reference.toLowerCase().includes(searchTerm);
+        
+        if (currentTab === 'all') return matchesSearch;
+        if (currentTab === 'draft') return inv.status === 'Draft' && matchesSearch;
+        if (currentTab === 'unsent') return inv.status === 'Unsent' && matchesSearch;
+        if (currentTab === 'sent') return inv.status === 'Sent' && matchesSearch;
+        if (currentTab === 'overdue') return inv.status === 'Overdue' && matchesSearch;
+        if (currentTab === 'paid') return inv.status === 'Paid' && matchesSearch;
+        return matchesSearch;
+      });
+      return filtered;
+    }
+
+    function updateTabCounts() {
+      const counts = {
+        all: invoices.length,
+        draft: invoices.filter(i => i.status === 'Draft').length,
+        unsent: invoices.filter(i => i.status === 'Unsent').length,
+        sent: invoices.filter(i => i.status === 'Sent').length,
+        overdue: invoices.filter(i => i.status === 'Overdue').length,
+        paid: invoices.filter(i => i.status === 'Paid').length
+      };
+      
+      document.getElementById('countAll').textContent = counts.all;
+      document.getElementById('countDraft').textContent = counts.draft;
+      document.getElementById('countUnsent').textContent = counts.unsent;
+      document.getElementById('countSent').textContent = counts.sent;
+      document.getElementById('countOverdue').textContent = counts.overdue;
+      document.getElementById('countPaid').textContent = counts.paid;
+    }
+
+    function updateKPIs() {
+      const totalAmount = invoices.reduce((s, i) => s + i.amount, 0);
+      const totalPaid = invoices.filter(i => i.status === 'Paid').reduce((s, i) => s + i.paid, 0);
+      const totalOutstanding = invoices.filter(i => i.status !== 'Paid').reduce((s, i) => s + i.balance, 0);
+      const totalOverdue = invoices.filter(i => i.status === 'Overdue').reduce((s, i) => s + i.balance, 0);
+      
+      // Total Receivables Card
+      document.getElementById('totalReceivables').textContent = formatCurrency(totalAmount);
+      document.getElementById('totalPaidAmount').textContent = formatCurrency(totalPaid);
+      document.getElementById('totalOutstanding').textContent = formatCurrency(totalOutstanding);
+      document.getElementById('totalOverdueAmount').textContent = formatCurrency(totalOverdue);
+      
+      const collectionRate = totalAmount > 0 ? Math.round((totalPaid / totalAmount) * 100) : 0;
+      document.getElementById('collectionRate').textContent = collectionRate + '%';
+      document.getElementById('collectionProgress').style.width = collectionRate + '%';
+      
+      // Invoice Status Card
+      const draftCount = invoices.filter(i => i.status === 'Draft').length;
+      const sentCount = invoices.filter(i => i.status === 'Sent' || i.status === 'Unsent').length;
+      const paidCount = invoices.filter(i => i.status === 'Paid').length;
+      
+      document.getElementById('totalInvoices').textContent = invoices.length;
+      document.getElementById('draftCount').textContent = draftCount;
+      document.getElementById('sentCount').textContent = sentCount;
+      document.getElementById('paidCount').textContent = paidCount;
+      
+      // This month invoices (simulated)
+      const thisMonth = new Date().getMonth();
+      const thisYear = new Date().getFullYear();
+      const monthlyCount = invoices.filter(i => {
+        const d = new Date(i.createdOn);
+        return d.getMonth() === thisMonth && d.getFullYear() === thisYear;
+      }).length;
+      document.getElementById('monthlyInvoices').textContent = monthlyCount + ' invoices';
+      
+      // Average Payment Card
+      const avgValue = invoices.length > 0 ? totalAmount / invoices.length : 0;
+      const highest = invoices.length > 0 ? Math.max(...invoices.map(i => i.amount)) : 0;
+      const lowest = invoices.length > 0 ? Math.min(...invoices.map(i => i.amount)) : 0;
+      const uniqueCust = new Set(invoices.map(i => i.customer)).size;
+      
+      document.getElementById('avgInvoiceValue').textContent = formatCurrency(avgValue);
+      document.getElementById('highestInvoice').textContent = formatCurrency(highest);
+      document.getElementById('lowestInvoice').textContent = formatCurrency(lowest);
+      document.getElementById('uniqueCustomers').textContent = uniqueCust;
+      document.getElementById('monthlyTrend').textContent = '+12.5%';
+      
+      // Due Summary Card
+      const today = new Date();
+      const nextWeek = new Date(today);
+      nextWeek.setDate(today.getDate() + 7);
+      const nextNextWeek = new Date(today);
+      nextNextWeek.setDate(today.getDate() + 14);
+      const next30Days = new Date(today);
+      next30Days.setDate(today.getDate() + 30);
+      
+      let dueThisWeek = 0, dueNextWeek = 0, dueLater = 0;
+      invoices.filter(i => i.status !== 'Paid').forEach(i => {
+        const due = new Date(i.dueDate);
+        if (due <= nextWeek) dueThisWeek += i.balance;
+        else if (due <= nextNextWeek) dueNextWeek += i.balance;
+        else if (due <= next30Days) dueLater += i.balance;
+      });
+      
+      const dueNext30Total = dueThisWeek + dueNextWeek + dueLater;
+      document.getElementById('dueNext30Days').textContent = formatCurrency(dueNext30Total);
+      document.getElementById('dueThisWeek').textContent = formatCurrency(dueThisWeek);
+      document.getElementById('dueNextWeek').textContent = formatCurrency(dueNextWeek);
+      document.getElementById('dueLater').textContent = formatCurrency(dueLater);
+      
+      const overdueCount = invoices.filter(i => i.status === 'Overdue').length;
+      document.getElementById('overdueCount').textContent = overdueCount;
+    }
+
+    function renderTable() {
+      const filtered = filterInvoices();
+      const totalFiltered = filtered.length;
+      const totalPages = Math.ceil(totalFiltered / rowsPerPage);
+      const start = (currentPage - 1) * rowsPerPage;
+      const end = Math.min(start + rowsPerPage, totalFiltered);
+      const pageData = filtered.slice(start, end);
+      
+      const tbody = document.getElementById('invoiceTableBody');
+      tbody.innerHTML = '';
+      
+      pageData.forEach((inv, idx) => {
+        const sno = start + idx + 1;
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+          <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${inv.id}"></td>
+          <td>${sno}</td>
+          <td><span class="status-badge ${getStatusClass(inv.status)}">${inv.status}</span></td>
+          <td>${inv.due}</td>
+          <td><span class="invoice-number-link text-primary fw-semibold" style="cursor:pointer;" data-id="${inv.id}">${inv.invoiceId}</span></td>
+          <td>${inv.estimateId}</td>
+          <td>${inv.customer}</td>
+          <td>${inv.reference}</td>
+          <td>${inv.issueDate}</td>
+          <td>${inv.dueDate}</td>
+          <td class="fw-semibold">${formatCurrency(inv.amount)}</td>
+          <td>${formatCurrency(inv.paid)}</td>
+          <td class="${inv.balance > 0 ? 'text-danger fw-semibold' : 'text-success'}">${formatCurrency(inv.balance)}</td>
+          <td>${inv.createdOn}</td>
+          <td>${inv.lastUpdated}</td>
+          <td>${inv.enqId}</td>
+          <td>${inv.createdBy}</td>
+          <td>
+            <div class="dropdown action-dropdown">
+              <button class="btn btn-sm btn-light rounded-circle" data-bs-toggle="dropdown" style="width:32px;height:32px;">
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#" onclick="viewInvoice(${inv.id})"><i class="fas fa-eye text-primary"></i> View</a></li>
+                <li><a class="dropdown-item" href="#" onclick="editInvoice(${inv.id})"><i class="fas fa-edit text-success"></i> Edit</a></li>
+                <li><a class="dropdown-item" href="#" onclick="cloneInvoice(${inv.id})"><i class="fas fa-copy text-info"></i> Clone</a></li>
+                ${inv.status === 'Draft' ? '<li><a class="dropdown-item" href="#" onclick="approveDraft(' + inv.id + ')"><i class="fas fa-check-circle text-warning"></i> Approve Draft</a></li>' : ''}
+                <li><a class="dropdown-item text-danger" href="#" onclick="deleteInvoice(${inv.id})"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" onclick="downloadInvoice(${inv.id})"><i class="fas fa-download text-secondary"></i> Download</a></li>
+              </ul>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+      
+      document.getElementById('rowStart').textContent = totalFiltered > 0 ? start + 1 : 0;
+      document.getElementById('rowEnd').textContent = end;
+      document.getElementById('totalRows').textContent = totalFiltered;
+      
+      renderPagination(totalPages);
+      
+      document.querySelectorAll('.invoice-number-link').forEach(el => {
+        el.addEventListener('click', (e) => {
+          const id = parseInt(el.getAttribute('data-id'));
+          viewInvoice(id);
+        });
+      });
+    }
+
+    function renderPagination(totalPages) {
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+      
+      if (totalPages <= 1) return;
+      
+      pagination.innerHTML += `
+        <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+          <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">«</a>
+        </li>
+      `;
+      
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+          pagination.innerHTML += `
+            <li class="page-item ${currentPage === i ? 'active' : ''}">
+              <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+            </li>
+          `;
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+          pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+        }
+      }
+      
+      pagination.innerHTML += `
+        <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+          <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a>
+        </li>
+      `;
+    }
+
+    function changePage(page) {
+      const filtered = filterInvoices();
+      const totalPages = Math.ceil(filtered.length / rowsPerPage);
+      if (page >= 1 && page <= totalPages) {
+        currentPage = page;
+        renderTable();
+      }
+    }
+
+    // Action functions
+    function viewInvoice(id) {
+      const inv = invoices.find(i => i.id === id);
+      if (!inv) return;
+      
+      const modalBody = document.getElementById('previewModalBody');
+      modalBody.innerHTML = `
+        <div class="bg-white border rounded-4 p-4">
+          <div class="d-flex flex-wrap justify-content-between border-bottom pb-3 mb-3">
+            <div>
+              <h4 class="fw-bold fs-3">#${inv.invoiceId}</h4>
+              <p class="text-muted mb-0"> Issue: ${inv.issueDate}</p>
+              <p class="text-muted"> Due: ${inv.dueDate}</p>
+            </div>
+            <div class="bg-light p-3 rounded-3">
+              <strong>FINTLE BUSINESS</strong><br> GSTIN: 29AAACF1234D1Z
+            </div>
+          </div>
+          <div class="d-flex justify-content-between flex-wrap mb-4">
+            <div><span class="text-muted">Bill To:</span>
+              <p class="fw-bold">${inv.customer}</p>
+              <p class="small">Reference: ${inv.reference}</p>
+            </div>
+            <div><span class="text-muted">Status:</span> <span class="badge ${getStatusClass(inv.status)}">${inv.status}</span></div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered bg-light">
+              <thead class="table-light">
+                <tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Service/Product</td><td>1</td><td>${formatCurrency(inv.amount)}</td><td>${formatCurrency(inv.amount)}</td></tr>
+              </tbody>
+              <tfoot>
+                <tr><td colspan="3" class="text-end fw-bold">Subtotal</td><td>${formatCurrency(inv.amount)}</td></tr>
+                <tr><td colspan="3" class="text-end fw-bold">Total</td><td class="fw-bold">${formatCurrency(inv.amount)}</td></tr>
+                <tr><td colspan="3" class="text-end">Paid</td><td>${formatCurrency(inv.paid)}</td></tr>
+                <tr><td colspan="3" class="text-end fw-bold">Balance Due</td><td class="fw-bold ${inv.balance > 0 ? 'text-danger' : 'text-success'}">${formatCurrency(inv.balance)}</td></tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="mt-4 d-flex justify-content-end gap-3">
+            <button class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary rounded-pill px-4" onclick="downloadInvoice(${inv.id})"><i class="fas fa-download me-2"></i> Download</button>
+          </div>
+        </div>
+      `;
+      
+      new bootstrap.Modal(document.getElementById('invoicePreviewModal')).show();
+    }
+
+    function editInvoice(id) {
+      showToast(`✏️ Editing invoice #${id}`);
+      location.href = `create-invoice.html?edit=${id}`;
+    }
+
+    function cloneInvoice(id) {
+      const inv = invoices.find(i => i.id === id);
+      if (inv) {
+        const newInv = { ...inv, id: Math.max(...invoices.map(i => i.id)) + 1, invoiceId: `${inv.invoiceId}-CLONE`, status: 'Draft' };
+        invoices.push(newInv);
+        updateTabCounts();
+        updateKPIs();
+        renderTable();
+        showToast(`📋 Invoice cloned as ${newInv.invoiceId}`);
+      }
+    }
+
+    function approveDraft(id) {
+      const inv = invoices.find(i => i.id === id);
+      if (inv && inv.status === 'Draft') {
+        inv.status = 'Unsent';
+        updateTabCounts();
+        updateKPIs();
+        renderTable();
+        showToast(`✅ Draft approved: ${inv.invoiceId}`);
+      }
+    }
+
+    function deleteInvoice(id) {
+      if (confirm('Are you sure you want to delete this invoice?')) {
+        invoices = invoices.filter(i => i.id !== id);
+        updateTabCounts();
+        updateKPIs();
+        
+        const filtered = filterInvoices();
+        const totalPages = Math.ceil(filtered.length / rowsPerPage);
+        if (currentPage > totalPages && totalPages > 0) {
+          currentPage = totalPages;
+        }
+        
+        renderTable();
+        showToast('🗑️ Invoice deleted');
+      }
+    }
+
+    function downloadInvoice(id) {
+      showToast(`📥 Downloading invoice #${id}`);
+    }
+
+    // Bulk actions
+    function getSelectedIds() {
+      const checkboxes = document.querySelectorAll('.row-checkbox:checked');
+      return Array.from(checkboxes).map(cb => parseInt(cb.getAttribute('data-id')));
+    }
+
+    function bulkExport() {
+      const ids = getSelectedIds();
+      if (ids.length === 0) {
+        showToast('⚠️ No invoices selected');
+        return;
+      }
+      showToast(`📤 Exporting ${ids.length} invoice(s)`);
+    }
+
+    function bulkMarkAsPaid() {
+      const ids = getSelectedIds();
+      if (ids.length === 0) {
+        showToast('⚠️ No invoices selected');
+        return;
+      }
+      ids.forEach(id => {
+        const inv = invoices.find(i => i.id === id);
+        if (inv) {
+          inv.status = 'Paid';
+          inv.paid = inv.amount;
+          inv.balance = 0;
+        }
+      });
+      updateTabCounts();
+      updateKPIs();
+      renderTable();
+      showToast(`✅ ${ids.length} invoice(s) marked as paid`);
+    }
+
+    function bulkDelete() {
+      const ids = getSelectedIds();
+      if (ids.length === 0) {
+        showToast('⚠️ No invoices selected');
+        return;
+      }
+      if (confirm(`Delete ${ids.length} invoice(s)?`)) {
+        invoices = invoices.filter(i => !ids.includes(i.id));
+        updateTabCounts();
+        updateKPIs();
+        currentPage = 1;
+        renderTable();
+        showToast(`🗑️ ${ids.length} invoice(s) deleted`);
+      }
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.invoice-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.invoice-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          currentTab = tab.getAttribute('data-tab');
+          currentPage = 1;
+          renderTable();
+        });
+      });
+      
+      document.getElementById('selectAllCheckbox')?.addEventListener('change', (e) => {
+        document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
+      });
+      
+      document.getElementById('globalSearch')?.addEventListener('input', () => {
+        currentPage = 1;
+        renderTable();
+      });
+      
+      updateTabCounts();
+      updateKPIs();
+      renderTable();
+    });
+
+    window.viewInvoice = viewInvoice;
+    window.editInvoice = editInvoice;
+    window.cloneInvoice = cloneInvoice;
+    window.approveDraft = approveDraft;
+    window.deleteInvoice = deleteInvoice;
+    window.downloadInvoice = downloadInvoice;
+    window.changePage = changePage;
+    window.bulkExport = bulkExport;
+    window.bulkMarkAsPaid = bulkMarkAsPaid;
+    window.bulkDelete = bulkDelete;
+  </script>
+</body>
+
+</html>
